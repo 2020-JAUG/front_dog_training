@@ -34,7 +34,7 @@ const About_us = () => {
               Somos un equipo de jóvenes entusiasmados y apasionados por el
               mundo de la programación y nuestros perros, de ahí nace la fusión
               para crear esta pequeña comunidad y conseguir unir a más personas
-              con el interés de saber educar a tu perro
+              con el interés de saber educar a tu perro.
             </p>
           </div>
         </section>
@@ -60,7 +60,7 @@ const About_us = () => {
             <h3 className="tlf text-center">Parte del equipo</h3>
             <p id="parrAbout">
               Conoce a una parte de nuestro equipo e interactua con ellos sobre
-              cualquier duda que te pueda surguir, conocéles y comparte tu
+              cualquier duda que te pueda surguir, conóceles y comparte tu
               experencia con el equipo.
             </p>
             <div className="sendButton" onClick={() => goTo("/trainers")}>

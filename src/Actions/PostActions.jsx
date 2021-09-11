@@ -103,6 +103,51 @@ const downloadPostError = () => ({
   payload: true,
 });
 
+//Get userPosts
+export function get_user_post() {
+  const  token = store.getState().credentials.token;
+  const  body = store.getState().credentials.user.id;
+
+  return async (dispatch) => {
+    dispatch(download_user_post());
+
+    await axios
+      .post("http://localhost:5000/post/userpost", body, {
+        headers: { authorization: "Bearer " + token  },
+      })
+      .then((res) => {
+        console.log(body,'despues de la res')
+        dispatch(user_post_succe(res.data)); //Put dispatch if the call is succe
+      })
+      .catch((err) => {
+        console.log(err);
+        // console.log(err.response.data);
+        dispatch(user_post_error());
+        //Alert error
+        Swal.fire({
+          icon: "error",
+          title: "Was a mistake",
+          text: "Try again.",
+        });
+      });
+  };
+};
+
+const download_user_post = () => ({
+  type: GET_POST,
+  payload: true,
+});
+
+const user_post_succe = (body) => ({
+  type: GET_POST_SUCCE,
+  payload: body,
+});
+
+const user_post_error = () => ({
+  type: GET_POST_ERROR,
+  payload: true,
+});
+
 //Select && remove a post
 export function removePostAction(postId, userId) {
   const token = store.getState().credentials.token;

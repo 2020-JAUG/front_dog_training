@@ -104,3 +104,13 @@
     opacity: 1;
   }
 }
+
+@media (max-width: 414px) {
+  #carta {
+    display: flex;
+    justify-content: center;
+  }
+  #buttonHome {
+    left: 3em;
+  }
+}

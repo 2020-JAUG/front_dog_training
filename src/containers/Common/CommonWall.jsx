@@ -23,21 +23,23 @@ const CommonWall = () => {
   const loading = useSelector((state) => state.data.loading);
 
   return (
-    <div className="commonWall">
-      <MakePost />
-      {loading ? (
-        <div className="spinnerContainer">
-          <Spinner />
-        </div>
-      ) : null}
-      {post.length === 0 ? (
-        <div className="spinnerContainer">
-          <Spinner />
-        </div>
-      ) : (
-        [...post].reverse().map((post) => <Post key={post.id} post={post} />)
-      )}
-    </div>
+    <>
+      <div className="commonWall">
+        <MakePost />
+        {loading ? (
+          <div className="spinnerContainer">
+            <Spinner />
+          </div>
+        ) : null}
+        {post.length === 0 ? (
+          <div className="spinnerContainer">
+            <Spinner />
+          </div>
+        ) : (
+          [...post].reverse().map((post) => <Post key={post.id} post={post} />)
+        )}
+      </div>
+    </>
   );
 };
 

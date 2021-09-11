@@ -68,9 +68,9 @@ const Home = () => {
               ></div>
             </div>
           </div>
-          <div className="options">
-            <div className="row justify-content-center">
-              <div className="card" Style="width: 16.8em; height:27.5em;">
+          <div className="option text-center">
+            <div className="card-body" id="carta">
+              <div className="card" Style="width: 16.8em; height:26.5em;">
                 <div className="card-body">
                   <h5 className="card-title text-center" id="home-parr">
                     CONTÁCTANOS
@@ -88,9 +88,9 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="option">
-            <div className="row justify-content-center">
-              <div className="card" Style="width: 16.8em; height:27.5em;">
+          <div className="option text-center">
+            <div className="card-body" id="carta">
+              <div className="card" Style="width: 16.8em; height:26.5em;">
                 <div className="card-body">
                   <h5 className="card-title text-center" id="home-parr">
                     SOBRE NOSOTROS

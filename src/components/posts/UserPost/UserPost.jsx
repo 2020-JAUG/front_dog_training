@@ -7,24 +7,22 @@ import Spinner from "../../Spinner/Spinner";
 import Swal from "sweetalert2";
 
 //ACTIONS OF RDX
-import { removePostAction, editPost, getPostAction } from "../../../Actions/PostActions";
+import { removePostAction, editPost, get_user_post } from "../../../Actions/PostActions";
 
 const userPost = () => {
-
   const dispatch = useDispatch();
   const history = useHistory();
 
    //Access to the states
    const userPost = useSelector((state) => state.data.post);
 
-   useEffect(() => {
+  useEffect(() => {
     //Consult the API
-    const findPost = (props) => dispatch(getPostAction(props));
+    const findPost = () => dispatch(get_user_post());
     findPost();
   }, [dispatch]);
 
   const confirmRemove = (postId, userId) => {
-    console.log('post',postId, 'user--->',userId)
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",

@@ -53,7 +53,9 @@ const Home = () => {
 
       <div className="bg-transparent" id="homeContainer" Style="max-width: auto; min-width:auto; height: auto;">
         <div className="row row-cols-md-6 justify-content-evenly">
-          <div className="card text-center" Style="width: 16.8em; height:27.5em;">
+          <div className="option text-center">
+            <div className="card-body" id="carta">
+            <div className="card" Style="width: 16.8em; height:26.5em;">
             <div className="card-body">
               <h5 className="card-title text-center" id="home-parr">
                 ADIESTRADORES
@@ -66,6 +68,8 @@ const Home = () => {
                 id="buttonOption"
                 onClick={() => goTo("/trainers")}
               ></div>
+            </div>
+            </div>
             </div>
           </div>
           <div className="option text-center">

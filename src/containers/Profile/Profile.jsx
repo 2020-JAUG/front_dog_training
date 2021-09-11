@@ -1,13 +1,24 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { connect } from "react-redux";
 import moment from "moment";
 import Pensando from "../../assets/Buenos_modales/perro-pensando.png";
 import Spinner from "../../components/Spinner/Spinner";
+//RDX
+import { connect, useDispatch } from "react-redux";
+import { get_user_post } from '../../Actions/PostActions';
+// import store from '../../redux/store';
 
 const Profile = (props) => {
   let history = useHistory();
+  const dispatch = useDispatch();
 
+
+  const userPost = () => {
+    // const  body = store.getState().credentials.user.id;
+    dispatch(get_user_post());
+    // console.log(body, '<--profile')
+    history.push("/userPost");
+  };
   if (props.credentials?.token) {
     return (
       <div className="area">
@@ -85,8 +96,9 @@ const Profile = (props) => {
                             <h4
                               className="m-b-10 f-w-600"
                               Style="cursor:pointer;"
-                              onClick={() => history.push("/userpost")}
-                            >
+                              // onClick={() => history.push("/userpost")}
+                              onClick={() => userPost(props.userId)}
+                              >
                               POSTS
                             </h4>
                           </div>

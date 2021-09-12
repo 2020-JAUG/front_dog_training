@@ -28,7 +28,8 @@ const Home = () => {
           <div className="col-md-8">
             <div className="card-body position-relative mt-lg-5">
               <h1 className="card-title" id="h1Home">
-                D O G &nbsp; T R A I N I N G
+                D O G &nbsp;
+                <hr Style="color:white;" />T R A I N I N G
               </h1>
               <p className="card-text" id="parrHome">
                 Somos una comunidad dedicada al cuidado de nuestras mascotas,

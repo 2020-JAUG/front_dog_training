@@ -3,8 +3,8 @@ import {
   GET_USER_SUCCE,
   GET_USER_ERROR,
   LOGIN,
-  LOGOUT,
-  UPDATE_USER,
+  // LOGOUT,
+  // UPDATE_USER,
 } from "../redux/types";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -46,10 +46,10 @@ const loginIn = (res) => ({
   payload: res.data,
 });
 //If the product is saved in the database and modificate the state
-const logout = (body) => ({
-  type: LOGOUT,
-  payload: { body },
-});
+// const logout = (body) => ({
+//   type: LOGOUT,
+//   payload: { body },
+// });
 
 export function getUserActions() {
   const token = store.getState().credentials.token;

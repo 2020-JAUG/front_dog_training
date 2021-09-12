@@ -28,7 +28,8 @@ const Home = () => {
           <div className="col-md-8">
             <div className="card-body position-relative mt-lg-5">
               <h1 className="card-title" id="h1Home">
-                D O G &nbsp; T R A I N I N G
+                D O G &nbsp;
+                <hr Style="color:white;" />T R A I N I N G
               </h1>
               <p className="card-text" id="parrHome">
                 Somos una comunidad dedicada al cuidado de nuestras mascotas,
@@ -51,26 +52,35 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="bg-transparent" id="homeContainer" Style="max-width: auto; min-width:auto; height: auto;">
+      <div
+        className="bg-transparent"
+        id="homeContainer"
+        Style="max-width: auto; min-width:auto; height: auto;"
+      >
         <div className="row row-cols-md-6 justify-content-evenly">
-          <div className="card text-center" Style="width: 16.8em; height:27.5em;">
-            <div className="card-body">
-              <h5 className="card-title text-center" id="home-parr">
-                ADIESTRADORES
-              </h5>
-              <p className="card-text text-center" id="parrHome">
-                Contacta libremente con cualquiera de nuestros trainers sobre cualquier consulta.
-              </p>
-              <div
-                className="offset-1 mt-5 position-relative"
-                id="buttonOption"
-                onClick={() => goTo("/trainers")}
-              ></div>
+          <div className="option text-center">
+            <div className="card-body" id="carta">
+              <div className="card" Style="width: 16.8em; height:26.5em;">
+                <div className="card-body">
+                  <h5 className="card-title text-center" id="home-parr">
+                    ADIESTRADORES
+                  </h5>
+                  <p className="card-text text-center" id="parrHome">
+                    Contacta libremente con cualquiera de nuestros trainers
+                    sobre cualquier consulta.
+                  </p>
+                  <div
+                    className="offset-1 mt-5 position-relative"
+                    id="buttonOption"
+                    onClick={() => goTo("/trainers")}
+                  ></div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="options">
-            <div className="row justify-content-center">
-              <div className="card" Style="width: 16.8em; height:27.5em;">
+          <div className="option text-center">
+            <div className="card-body" id="carta">
+              <div className="card" Style="width: 16.8em; height:26.5em;">
                 <div className="card-body">
                   <h5 className="card-title text-center" id="home-parr">
                     CONTÁCTANOS
@@ -88,15 +98,16 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="option">
-            <div className="row justify-content-center">
-              <div className="card" Style="width: 16.8em; height:27.5em;">
+          <div className="option text-center">
+            <div className="card-body" id="carta">
+              <div className="card" Style="width: 16.8em; height:26.5em;">
                 <div className="card-body">
                   <h5 className="card-title text-center" id="home-parr">
                     SOBRE NOSOTROS
                   </h5>
                   <p className="card-text text-center" id="parrHome">
-                    Conócenos más a fondo y descubre como nace la idea de crear esta comunidad.
+                    Conócenos más a fondo y descubre como nace la idea de crear
+                    esta comunidad.
                   </p>
                   <div
                     className="offset-1 mt-5 position-relative"

@@ -12,7 +12,7 @@ import {
   START_EDIT_POST,
   EDIT_POST_SUCCE,
   EDIT_POST_ERROR,
-  ADD_COMMENT,
+  // ADD_COMMENT,
 } from "../redux/types";
 import axios from "axios";
 import Swal from "sweetalert2";

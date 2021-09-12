@@ -6,6 +6,10 @@ export const ADD_POST = 'add_post';
 export const ADD_POST_SUCCE = 'add_post_succe';
 export const ADD_POST_ERROR = 'add_post_error';
 
+export const ADD_COMMENT = 'add_comment';
+export const ADD_COMMENT_SUCCE = 'add_comment_succe';
+export const ADD_COMMENT_ERROR = 'add_comment_error';
+
 export const GET_POST = 'get_post';
 export const GET_POST_SUCCE = 'get_post_succe';
 export const GET_POST_ERROR = 'get_post_error';
@@ -22,9 +26,6 @@ export const EDIT_POST_ERROR = 'edit_post_error';
 export const GET_REMOVE_POST = 'get_remove_post';
 export const REMOVE_POST_SUCCE = 'remove_post_succe';
 export const REMOVE_POST_ERROR = 'remove_post_error';
-
-
-export const ADD_COMMENT = 'add_comment';
 
 export const SHOW_ALERT = 'SHOW_ALERT';
 export const HIDE_ALERT = 'HIDE_ALERT';

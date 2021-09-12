@@ -5,13 +5,13 @@ import thunk from "redux-thunk";
 
 const createStoreWithMiddleware = applyMiddleware(
     thunk,
-	save({ states: ['credentials', 'data', 'alert'] })
+	save({ states: ['credentials', 'post', 'alert'] })
 )(createStore);
 
 //Aqui guardamos en el local-storage de RDX
 const store = createStoreWithMiddleware(
     reducer,
-    load({ states: ['credentials', 'data', 'alert'] }),
+    load({ states: ['credentials', 'post', 'alert'] }),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__({
         trace: true,
     })

@@ -4,7 +4,7 @@ import moment from "moment";
 import Swal from "sweetalert2";
 //RDX
 import { connect, useDispatch } from "react-redux";
-import { removePostAction, editPost } from "../../Actions/PostActions";
+import { removePostAction, editPost, do_comment_post } from "../../Actions/PostActions";
 
 const Post = ({ post }) => {
   const { title, content, lastName, date, userName, id, userId } = post;
@@ -33,6 +33,12 @@ const Post = ({ post }) => {
   const postToEdit = (post) => {
     dispatch(editPost(post));
     history.push("/editPost");
+  };
+
+  const doComment = (postId) => {
+    console.log(postId,'commentId-desde-post.jsx')
+    dispatch(do_comment_post(postId));
+    history.push("/comments");
   };
 
   return (
@@ -76,7 +82,7 @@ const Post = ({ post }) => {
                   <span
                     Style="cursor:pointer;"
                     className=" m-xxl-5"
-                    // onClick={() => doComment(id)}
+                    onClick={() => doComment(id)}
                   >
                     <span className="social">
                       <i className="fa fa-comments" color="black"></i>
@@ -117,5 +123,5 @@ const Post = ({ post }) => {
 
 export default connect((state) => ({
   credentials: state.credentials,
-  data: state.data.post,
+  post: state.post
 }))(Post);

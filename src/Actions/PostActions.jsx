@@ -2,6 +2,9 @@ import {
   ADD_POST,
   ADD_POST_SUCCE,
   ADD_POST_ERROR,
+  ADD_COMMENT,
+  ADD_COMMENT_SUCCE,
+  ADD_COMMENT_ERROR,
   GET_POST,
   GET_POST_SUCCE,
   GET_POST_ERROR,
@@ -11,8 +14,7 @@ import {
   GET_POST_EDIT,
   START_EDIT_POST,
   EDIT_POST_SUCCE,
-  EDIT_POST_ERROR,
-  ADD_COMMENT,
+  EDIT_POST_ERROR
 } from "../redux/types";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -20,11 +22,12 @@ import store from '../redux/store';
 
 
 export function createPostAction(body) {
+  const  token = store.getState().credentials.token;
   return async (dispatch) => {
     dispatch(addPost());
     await axios
       .post("https://jaug-dog-training.herokuapp.com/post", body, {
-        headers: { authorization: "Bearer " },
+        headers: { authorization: "Bearer " + token },
       })
       .then((res) => {
         dispatch(addPostSucce(body)); //This is to state
@@ -165,6 +168,8 @@ export function removePostAction(postId, userId) {
         Swal.fire("Deleted!", "Your post has been deleted.", "success");
       })
       .catch((err) => {
+        console.log(err.response.data);
+
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -240,4 +245,47 @@ const editSucce = (body) => ({
 const editError = () => ({
   type: EDIT_POST_ERROR,
   payload: true
+});
+
+export function do_comment_post(body) {
+  const  token = store.getState().credentials.token;
+  return async (dispatch) => {
+    dispatch(addComment());
+    await axios
+      .post("http://localhost:5000/comments", body, {
+        headers: { authorization: "Bearer " + token },
+      })
+      .then((res) => {
+        dispatch(add_comment_succe(body)); //This is to state
+        //Alert
+        Swal.fire("Correct", "The post was added successfully.", "success");
+      })
+      .catch((err) => {
+        console.log(err);
+        //But if there is an error, change the state
+        dispatch(add_comment_error(true));
+        //Alert error
+        Swal.fire({
+          icon: "error",
+          title: "Was a mistake",
+          text: "Try again.",
+        });
+      });
+  };
+};
+
+const addComment = () => ({
+  type: ADD_COMMENT,
+  payload: true,
+});
+//If the product is saved in the database and modificate the state
+const add_comment_succe = (body) => ({
+  type: ADD_COMMENT_SUCCE,
+  payload: body,
+});
+
+//If there was an error. state take the state of error
+const add_comment_error = (state) => ({
+  type: ADD_COMMENT_ERROR,
+  payload: state,
 });

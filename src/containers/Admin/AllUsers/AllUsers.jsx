@@ -8,7 +8,7 @@ const AllUsers = (props) => {
   const dispatch = useDispatch(props.credentials?.token);
 
   //Access to the states
-  const users = useSelector((state) => state.data.post);
+  const users = useSelector((state) => state.post.post);
 
   useEffect(() => {
     //Consult the API
@@ -52,4 +52,5 @@ const AllUsers = (props) => {
 
 export default connect((state) => ({
   credentials: state.credentials,
+  post: state.post
 }))(AllUsers);

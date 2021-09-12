@@ -15,7 +15,7 @@ const EditPost = (props) => {
   const history = useHistory();
 
   //Access to the states
-  const postEdit = useSelector((state) => state.data.editpost);
+  const postEdit = useSelector((state) => state.post.editpost);
   // const body = (body) => dispatch(editPostAction(body));
 
   useEffect(() => {
@@ -98,5 +98,5 @@ const EditPost = (props) => {
 
 export default connect((state) => ({
   credentials: state.credentials,
-  data: state.data.post,
+  post: state.post
 }))(EditPost);

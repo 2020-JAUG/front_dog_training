@@ -14,7 +14,7 @@ const userPost = () => {
   const history = useHistory();
 
    //Access to the states
-   const userPost = useSelector((state) => state.data.post);
+   const userPost = useSelector((state) => state.post);
 
   useEffect(() => {
     //Consult the API
@@ -102,5 +102,5 @@ const userPost = () => {
 
 export default connect((state) => ({
   credentials: state.credentials,
-  data: state.data,
+  post: state.post
 }))(userPost);

@@ -2,6 +2,9 @@ import {
   ADD_POST,
   ADD_POST_SUCCE,
   ADD_POST_ERROR,
+  ADD_COMMENT,
+  ADD_COMMENT_SUCCE,
+  ADD_COMMENT_ERROR,
   GET_USER,
   GET_USER_SUCCE,
   GET_USER_ERROR,
@@ -11,21 +14,20 @@ import {
   GET_REMOVE_POST,
   REMOVE_POST_SUCCE,
   REMOVE_POST_ERROR,
-  ADD_COMMENT,
   GET_POST_EDIT,
   EDIT_POST_SUCCE,
   EDIT_POST_ERROR,
 } from "../types";
 
 const initialState = {
-  post: [],
+  post: [{}],
   error: false,
   loading: false,
   removepost: null,
   editpost: null,
 };
 
-const dataReducer = (state = initialState, action) => {
+const postReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_POST:
     case GET_USER:
@@ -40,6 +42,7 @@ const dataReducer = (state = initialState, action) => {
       };
 
     case ADD_POST_ERROR:
+    case ADD_COMMENT_ERROR:
     case GET_POST_ERROR:
     case GET_USER_ERROR:
     case REMOVE_POST_ERROR:
@@ -52,6 +55,11 @@ const dataReducer = (state = initialState, action) => {
 
     case ADD_COMMENT:
       return { ...state, post: action.payload };
+
+    case ADD_COMMENT_SUCCE:
+      return {...state, loading: false,
+        post: [...state.post, action.payload]
+      }
 
     case GET_REMOVE_POST:
       return { ...state, removepost: action.payload };
@@ -80,4 +88,4 @@ const dataReducer = (state = initialState, action) => {
   }
 };
 
-export default dataReducer;
+export default postReducer;

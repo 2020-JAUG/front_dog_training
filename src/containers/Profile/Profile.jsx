@@ -184,5 +184,5 @@ const Profile = (props) => {
 
 export default connect((state) => ({
   credentials: state.credentials,
-  data: state.data,
+  post: state.post
 }))(Profile);

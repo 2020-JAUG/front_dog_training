@@ -10,7 +10,6 @@ import Spinner from "../../components/Spinner/Spinner";
 
 const CommonWall = () => {
   const dispatch = useDispatch();
-
   useEffect(() => {
     //Consult the API
     const findPost = (props) => dispatch(getPostAction(props));
@@ -19,8 +18,9 @@ const CommonWall = () => {
   }, []);
 
   //Access to the states
-  const post = useSelector((state) => state.data.post);
-  const loading = useSelector((state) => state.data.loading);
+  const post = useSelector((state) => state.post.post);
+  console.log(post, 'iterable?')
+  const loading = useSelector((state) => state.post.loading);
 
   return (
     <>
@@ -45,5 +45,5 @@ const CommonWall = () => {
 
 export default connect((state) => ({
   credentials: state.credentials,
-  data: state.data.post,
+  post: state.post
 }))(CommonWall);

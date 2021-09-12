@@ -1,70 +1,109 @@
-# Getting Started with Create React App
+<h1 align ="center"><img src="src/assets/Buenos_modales/pata1.png" width="40"> Dog Training <img src="src/assets/Buenos_modales/pata1.png" width="40"></h1>
+<br>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Final project from the Fullstack Developer Bootcamp at [Geeks Hubs](https://geekshubsacademy.com/) by [Alejandro](https://github.com/2020-JAUG).
 
-## Available Scripts
 
-In the project directory, you can run:
+<b>Start: 21 July  end: 23 August 2021</b>
+#### Coding 👨🏽‍💻
+| Hours worked | > 80 Hours  |
+| -----------  | -------  |
 
-### `npm start`
+For its development, I have relied on the good practices offered by <b> GitFlow. </b>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# <h1 align ="center"> Index </h1>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- [What is it? 🧐](#whatisit?)
+- [Infrastructure](#infrastructure?)
+- [Requirements ⚙️](#requirements)
+- [Safety 🔐](#safety)
+- [Technologies](#technologies)
 
-### `npm test`
+# <h1 align ="center"> What is it?  </h1>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The purpose of this design is to create a dog training community.
 
-### `npm run build`
+On this website, you can register and then log in or log out, and share a post.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Once you are registered and have activated your account, you can access the common wall, where all users can post any questions or share information about dog training.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# <h1 align ="center"> Infrastructure </h1>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The front end is hosted and served by AWS Amplify through GitHub. It is a static web hosting with continuous deployment.
 
-### `npm run eject`
+AWS Amplify enables the constant rendering of this application.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<h1 align ="center"> Home  </h1>
+<img src="src/assets/Readme/Captura de pantalla 2021-09-13 a las 1.01.39.png" width="1000">
+<h1 align ="center"> Common Wall  </h1>
+<img src="src/assets/Readme/Captura de pantalla 2021-09-13 a las 1.21.57.png" width="1000">
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br/><br/>
+<h4 align ="center"> Example of create a post</h4>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```JavaScript
+export function createPostAction(body) {
+  return async (dispatch) => {
+    dispatch(addPost());
+    await axios
+      .post("https://jaug-dog-training.herokuapp.com/post", body, {
+        headers: { authorization: "Bearer " },
+      })
+      .then((res) => {
+        dispatch(addPostSucce(body));
+        //Alert
+        Swal.fire("Correct", "The post was added successfully.", "success");
+      })
+      .catch((err) => {
+        console.log(err);
+        //But if there is an error, change the state
+        dispatch(addPostError(true));
+        //Alert error
+        Swal.fire({
+          icon: "error",
+          title: "Was a mistake",
+          text: "Try again.",
+        });
+      });
+  };
+};
+```
 
-## Learn More
+<h1 align ="center"> Requirements ⚙️</h1>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- The first step is to clone the repository and install the project dependencies.
+```
+    $ npm install
+```
+- make sure you have downloaded, <b>Node, Axios and express</b>. [Download](https://nodejs.org/es/)  and install <b>Node.</b>
+```
+    $ npm install node
+```
+- Install <b>Axios.</b>
+```
+    $ npm install axios
+```
+- Install <b>Express.</b>
+```
+    $ npm install express.
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# <p align ="center"> Safety 🔐</p>
 
-### Code Splitting
+For the security part use <b>jsonwebtoken</b> and <b>bcrypt</b>. If you want to have it installed on your machine.
+<br>
+- Instalar <b>jsonwebtoken</b>
+````
+    $ npm install jsonwebtoken
+````
+- Instalar <b>bcrypt</b>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+````
+    $ npm install bcrypt
+`````
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# <p align ="center">Technologies 💻</p>
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+ <a href="https://git-scm.com/" target="_blank"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a><a href="https://nodejs.org" target="_blank"> <a href="https://postman.com" target="_blank"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="40" height="40"/> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="60" height="40"/> </a> <img src="/src/assets/Buenos_modales/axios.png" alt="axios" width="" height="40"/></a> <img src="/src/assets/Buenos_modales/express.png" alt="axios" width="40" height="40"/></a>

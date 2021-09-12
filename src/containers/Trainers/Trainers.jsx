@@ -28,9 +28,9 @@ const Trainers = () => {
             <p id="parrAbout">
               Programador y director de Dog training. Alex es un joven
               apasionado por los perros, por el mundo tecnológico y el
-              desarrollo de aplicaciones web. Estas dos pasiones le inspiraron
+              desarrollo de aplicaciones web. Sus dos pasiones le inspiraron
               para desarrollar esta plataforma web sobre adiestramiendo canino y
-              brindar a los amantes caninos un luegar donde compartir ideas,
+              brindar a los amantes caninos un lugar donde compartir ideas,
               dudas, y por que no, hacer quedadas con los usuarios más cercanos
               de su zona.
             </p>

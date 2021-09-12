@@ -27,20 +27,30 @@ const About_us = () => {
       </header>
       <main className="containerAbout">
         <section className="card cardAbout" data-aos="flip-right">
-          <img className="fondo" Style="height:100%; width:80%;" src={pataText} alt="institutoPatitas" />
+          <img
+            className="fondo"
+            Style="height:100%; width:80%;"
+            src={pataText}
+            alt="institutoPatitas"
+          />
           <div>
             <h3 className="tlf text-center">Adiestramiento Canino</h3>
             <p id="parrAbout">
               Somos un equipo de jóvenes entusiasmados y apasionados por el
               mundo de la programación y nuestros perros, de ahí nace la fusión
               para crear esta pequeña comunidad y conseguir unir a más personas
-              con el interés de saber educar a tu perro
+              con el interés de saber educar a tu perro.
             </p>
           </div>
         </section>
 
         <section className="card cardAbout" data-aos="fade-left">
-          <img className="imgAbout" Style="height:100%;" src={adies} alt="trainers" />
+          <img
+            className="imgAbout"
+            Style="height:100%;"
+            src={adies}
+            alt="trainers"
+          />
           <div>
             <h3 className="tlf text-center">Objetivos</h3>
             <p id="parrAbout">
@@ -60,7 +70,7 @@ const About_us = () => {
             <h3 className="tlf text-center">Parte del equipo</h3>
             <p id="parrAbout">
               Conoce a una parte de nuestro equipo e interactua con ellos sobre
-              cualquier duda que te pueda surguir, conocéles y comparte tu
+              cualquier duda que te pueda surguir, conóceles y comparte tu
               experencia con el equipo.
             </p>
             <div className="sendButton" onClick={() => goTo("/trainers")}>
@@ -70,7 +80,12 @@ const About_us = () => {
         </section>
 
         <section className="card cardAbout" data-aos="fade-left">
-          <img className="imgAbout" Style="height:100%;" src={adiestramiento} alt="adiestramiento" />
+          <img
+            className="imgAbout"
+            Style="height:100%;"
+            src={adiestramiento}
+            alt="adiestramiento"
+          />
           <div>
             <h3 className="tlf text-center">Entrenamiento</h3>
             <p id="parrAbout">

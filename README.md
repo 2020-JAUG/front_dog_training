@@ -93,11 +93,11 @@ export function createPostAction(body) {
 
 For the security part use <b>jsonwebtoken</b> and <b>bcrypt</b>. If you want to have it installed on your machine.
 <br>
-- Instalar <b>jsonwebtoken</b>
+- Install <b>jsonwebtoken</b>
 ````
     $ npm install jsonwebtoken
 ````
-- Instalar <b>bcrypt</b>
+- Install <b>bcrypt</b>
 
 ````
     $ npm install bcrypt

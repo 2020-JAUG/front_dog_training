@@ -16,8 +16,7 @@ import {
 } from "../redux/types";
 import axios from "axios";
 import Swal from "sweetalert2";
-import store from '../redux/store';
-
+import store from "../redux/store";
 
 export function createPostAction(body) {
   return async (dispatch) => {
@@ -62,7 +61,7 @@ const addPostError = (state) => ({
 });
 
 export function getPostAction() {
-  const  token = store.getState().credentials.token;
+  const token = store.getState().credentials.token;
   //Note getPostAction, run the function wownloadProducts
   return async (dispatch) => {
     dispatch(downloadPost());
@@ -103,6 +102,50 @@ const downloadPostError = () => ({
   payload: true,
 });
 
+//Get userPosts
+export function get_user_post(body) {
+  const token = store.getState().credentials.token;
+
+  return async (dispatch) => {
+    dispatch(download_user_post());
+
+    await axios
+      .post("http://localhost:5000/post/userpost", body, {
+        headers: { authorization: "Bearer " + token },
+      })
+      .then((res) => {
+        console.log(body, "despues de la res");
+        dispatch(user_post_succe(res.data)); //Put dispatch if the call is succe
+      })
+      .catch((err) => {
+        console.log(err);
+        // console.log(err.response.data,'lastConsole.log');
+        dispatch(user_post_error());
+        //Alert error
+        Swal.fire({
+          icon: "error",
+          title: "Was a mistake",
+          text: "Try again.",
+        });
+      });
+  };
+};
+
+const download_user_post = () => ({
+  type: GET_POST,
+  payload: true,
+});
+
+const user_post_succe = (body) => ({
+  type: GET_POST_SUCCE,
+  payload: body,
+});
+
+const user_post_error = () => ({
+  type: GET_POST_ERROR,
+  payload: true,
+});
+
 //Select && remove a post
 export function removePostAction(postId, userId) {
   const token = store.getState().credentials.token;
@@ -111,19 +154,23 @@ export function removePostAction(postId, userId) {
     dispatch(get_remove_post(postId, userId));
 
     await axios
-      .put("https://jaug-dog-training.herokuapp.com/post/deletepost", { postId, userId }, {
-        headers: { authorization: "Bearer " + token },
-      })
+      .put(
+        "https://jaug-dog-training.herokuapp.com/post/deletepost",
+        { postId, userId },
+        {
+          headers: { authorization: "Bearer " + token },
+        }
+      )
       .then((res) => {
         //If it is eliminated show alert
-        dispatch(removeSucce() );
+        dispatch(removeSucce());
         Swal.fire("Deleted!", "Your post has been deleted.", "success");
       })
       .catch((err) => {
         Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'You are not the owner of this post.',
+          icon: "error",
+          title: "Oops...",
+          text: "You are not the owner of this post.",
         });
         console.log(err);
         dispatch(removeError());
@@ -133,11 +180,12 @@ export function removePostAction(postId, userId) {
 
 const get_remove_post = (postId, userId) => ({
   type: GET_REMOVE_POST,
-  payload: postId, userId
+  payload: postId,
+  userId,
 });
 
 const removeSucce = () => ({
-  type: REMOVE_POST_SUCCE
+  type: REMOVE_POST_SUCCE,
 });
 
 const removeError = () => ({
@@ -150,7 +198,7 @@ export function editPost(post) {
   return (dispatch) => {
     dispatch(getPostEdit(post));
   };
-};
+}
 
 const getPostEdit = (post) => ({
   type: GET_POST_EDIT,
@@ -159,29 +207,29 @@ const getPostEdit = (post) => ({
 
 //Edit a record in the API and status
 export function editPostAction(body) {
-  const  token = store.getState().credentials.token;
+  const token = store.getState().credentials.token;
   return async (dispatch) => {
-    dispatch(startEdit() );
+    dispatch(startEdit());
     await axios
       .put("http://localhost:5000/post/updatepost", body, {
         headers: { authorization: "Bearer " + token },
       })
       .then((res) => {
-        dispatch(editSucce(body) ); //Put dispatch if the call is succe
+        dispatch(editSucce(body)); //Put dispatch if the call is succe
       })
       .catch((err) => {
         console.log(err);
-        console.log(err.response.data);
-        dispatch(editError() );
+        // console.log(err.response.data);
+        dispatch(editError());
         //Alert error
         Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'You don\'t have authorization.',
+          icon: "error",
+          title: "Oops...",
+          text: "You don't have authorization.",
         });
       });
   };
-}
+};
 //To show the edition
 const startEdit = () => ({
   type: START_EDIT_POST,
@@ -189,10 +237,10 @@ const startEdit = () => ({
 
 const editSucce = (body) => ({
   type: EDIT_POST_SUCCE,
-  payload: body
+  payload: body,
 });
 
 const editError = () => ({
   type: EDIT_POST_ERROR,
-  payload: true
+  payload: true,
 });

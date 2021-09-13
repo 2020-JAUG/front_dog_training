@@ -115,7 +115,7 @@ export function get_user_post() {
     dispatch(download_user_post());
 
     await axios
-      .post("http://localhost:5000/post/userpost", body, {
+      .post("https://jaug-dog-training.herokuapp.com/post/userpost", body, {
         headers: { authorization: "Bearer " + token  },
       })
       .then((res) => {

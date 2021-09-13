@@ -8,7 +8,7 @@ import Post from "../../components/Post/Post";
 import { getPostAction } from "../../Actions/PostActions";
 import Spinner from "../../components/Spinner/Spinner";
 
-const CommonWall = () => {
+const CommonWall = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     //Consult the API
@@ -18,8 +18,7 @@ const CommonWall = () => {
   }, []);
 
   //Access to the states
-  const post = useSelector((state) => state.post.post);
-  console.log(post, 'iterable?')
+  // const post = useSelector((state) => state.post.post);
   const loading = useSelector((state) => state.post.loading);
 
   return (
@@ -31,12 +30,12 @@ const CommonWall = () => {
             <Spinner />
           </div>
         ) : null}
-        {post.length === 0 ? (
+        {props.post.post.length === 0 ? (
           <div className="spinnerContainer">
             <Spinner />
           </div>
         ) : (
-          [...post].reverse().map((post) => <Post key={post.id} post={post} />)
+          props?.post.post.map((mensaje) => <Post key={mensaje.id} mensaje={mensaje} />)
         )}
       </div>
     </>

@@ -103,6 +103,12 @@ For the security part use <b>jsonwebtoken</b> and <b>bcrypt</b>. If you want to 
     $ npm install bcrypt
 `````
 
+# <p align ="center"> Features</p>
+
+- Add function to reply to user posts.
+- Add function to upload an image and videos.
+- Add function to filter by city.
+
 
 # <p align ="center">Technologies 💻</p>
 

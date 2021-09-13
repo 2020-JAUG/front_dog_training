@@ -15,8 +15,13 @@ const MakePost = (props) => {
     date: new Date(),
     title: "",
     content: "",
+    image: ""
   });
 
+  //To select a photo
+  const sendHandler = e => {
+    setImage(e.target.files[0])
+  };
   //To create a function
   const dispatch = useDispatch();
 
@@ -27,6 +32,7 @@ const MakePost = (props) => {
   const addPost = (body) => dispatch(createPostAction(body));
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const[image, setImage] = useState("");
 
   const SubmitPost = (e) => {
     e.preventDefault();
@@ -35,7 +41,9 @@ const MakePost = (props) => {
     if (title.trim() === "" || content.trim() === "") {
       return;
     }
-
+    // //Formate the picture
+    const formdata = new FormData();
+    formdata.append('image', image);
     let user = post.user;
     let token = post.token;
 
@@ -43,6 +51,7 @@ const MakePost = (props) => {
     addPost({
       title,
       content,
+      image,
       userName: post.name,
       lastName: post.lastName,
       date: new Date(),
@@ -52,6 +61,7 @@ const MakePost = (props) => {
 
     setTitle("");
     setContent("");
+    setImage("");
   };
   const [errors] = useState({
     eValidate: "",
@@ -99,11 +109,19 @@ const MakePost = (props) => {
               </button>
               <div className="errorsText">{errors.eValidate}</div>
               <input
+                onChange={sendHandler}
                 type="file"
                 className="form-control btn"
                 id="inputGroupFile02"
                 aria-label="Upload"
               />
+              <button
+                className="btn"
+                type="submit"
+                onClick={(e) => SubmitPost(e)}
+              >
+                Add photo
+              </button>
               {loading ? (
                 <div className="spinnerContainer">
                   <Spinner />

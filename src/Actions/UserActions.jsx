@@ -3,19 +3,17 @@ import {
   GET_USER_SUCCE,
   GET_USER_ERROR,
   LOGIN,
-  LOGOUT,
-  UPDATE_USER,
+  // LOGOUT,
 } from "../redux/types";
 import axios from "axios";
 import Swal from "sweetalert2";
 import store from "../redux/store";
 import { useHistory } from "react-router-dom";
 
-export function handleSubmit(body) {
+export const handleSubmit = async (body) => {
   return async (dispatch) => {
-    // dispatch(loginIn());
     await axios
-      .post("http://localhost:5000/login", body)
+      .post("https://jaug-dog-training.herokuapp.com/login", body)
       .then((res) => {
         dispatch(loginIn(res.data)); //This is to state
         setTimeout(() => {
@@ -46,10 +44,10 @@ const loginIn = (res) => ({
   payload: res.data,
 });
 //If the product is saved in the database and modificate the state
-const logout = (body) => ({
-  type: LOGOUT,
-  payload: { body },
-});
+// const logout = (body) => ({
+//   type: LOGOUT,
+//   payload: { body },
+// });
 
 export function getUserActions() {
   const token = store.getState().credentials.token;

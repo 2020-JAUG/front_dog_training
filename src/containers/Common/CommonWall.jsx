@@ -35,7 +35,7 @@ const CommonWall = () => {
           <Spinner />
         </div>
       ) : (
-        [...post].reverse().map((post) => <Post key={post.id} post={post} />)
+        [...post].map((post) => <Post key={post.id} post={post} />)
       )}
     </div>
   );

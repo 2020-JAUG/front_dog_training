@@ -212,7 +212,7 @@ export function editPostAction(body) {
   return async (dispatch) => {
     dispatch(startEdit());
     await axios
-      .put("http://localhost:5000/post/updatepost", body, {
+      .put("https://jaug-dog-training.herokuapp.com/post/updatepost", body, {
         headers: { authorization: "Bearer " + token },
       })
       .then((res) => {

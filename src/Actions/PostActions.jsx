@@ -19,11 +19,12 @@ import Swal from "sweetalert2";
 import store from "../redux/store";
 
 export function createPostAction(body) {
+  const token = store.getState().credentials.token;
   return async (dispatch) => {
     dispatch(addPost());
     await axios
       .post("https://jaug-dog-training.herokuapp.com/post", body, {
-        headers: { authorization: "Bearer " },
+        headers: { authorization: "Bearer " + token },
       })
       .then((res) => {
         dispatch(addPostSucce(body)); //This is to state

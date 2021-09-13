@@ -16,7 +16,7 @@ const userPost = (props) => {
 
   //Access to the states
    const userPost = useSelector((state) => state.data.post);
-   const  body = store.getState().credentials.user.id;
+   const  body = store.getState().credentials.user;
 
    useEffect(() => {
      //Consult the API

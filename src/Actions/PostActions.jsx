@@ -20,19 +20,22 @@ import store from "../redux/store";
 
 export function createPostAction(body) {
   const token = store.getState().credentials.token;
+  console.log(body, 'ACTIONS')
   return async (dispatch) => {
     dispatch(addPost());
     await axios
-      .post("https://jaug-dog-training.herokuapp.com/post", body, {
+      .post("http://localhost:5000/post", body, {
         headers: { authorization: "Bearer " + token },
       })
       .then((res) => {
         dispatch(addPostSucce(body)); //This is to state
+        console.log('sin .text', res)
         //Alert
         Swal.fire("Correct", "The post was added successfully.", "success");
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data);
         //But if there is an error, change the state
         dispatch(addPostError(true));
         //Alert error

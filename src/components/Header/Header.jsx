@@ -68,19 +68,19 @@ const Header2 = (props) => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav text-center me-auto mb-2 mb-lg-0">
               <li className="nav-item" Style="cursor:pointer;">
-              <div className="text-center mt-3 about" onClick={() => history.push("/aboutus")}>SOBRE NOSOTROS&nbsp; &nbsp;</div>
+              <div className="text-center mt-3 about linkLogout" onClick={() => history.push("/aboutus")}>SOBRE NOSOTROS&nbsp; &nbsp;</div>
               </li>
               <li><a href="{}"><div id="google_translate_element"></div></a></li>
               <li className="nav-item" Style="cursor:pointer;">
-              <div className="text-center mt-3 about" onClick={() => history.push("/contact")}>CONTÁCTANOS&nbsp; &nbsp;</div>
+              <div className="text-center mt-3 about linkLogout" onClick={() => history.push("/contact")}>CONTÁCTANOS&nbsp; &nbsp;</div>
               </li>
               <li className="nav-item about" Style="cursor:pointer;">
-                <div className="text-center mt-3" onClick={() => history.push("/trainers")}>ADIESTRADORES</div>
+                <div className="text-center mt-3 linkLogout" onClick={() => history.push("/trainers")}>ADIESTRADORES</div>
               </li>
 
             </ul>
-                <div className="text-center text-black about" onClick={() => history.push("/login")} Style="cursor:pointer;">LOG IN</div>  &nbsp; &nbsp;
-                <div className="text-center text-black about" onClick={() => history.push("/register")} Style="cursor:pointer;">SIGN UP</div>
+                <div className="text-center text-black about linkLogout" onClick={() => history.push("/login")} Style="cursor:pointer;">LOG IN</div>  &nbsp; &nbsp;
+                <div className="text-center text-black about linkLogout" onClick={() => history.push("/register")} Style="cursor:pointer;">SIGN UP</div>
           </div>
         </div>
       </nav>

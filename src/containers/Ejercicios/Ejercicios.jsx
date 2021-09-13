@@ -1,6 +1,6 @@
 import React from "react";
 import cachorro from "../../assets/Buenos_modales/orejon.png";
-import jugando from "../../assets/Buenos_modales/jugando.jpeg";
+import jugando from "../../assets/Buenos_modales/jugando.png";
 import jovenes from "../../assets/Buenos_modales/jovenes.png";
 import adulto from "../../assets/Buenos_modales/agility.png";
 

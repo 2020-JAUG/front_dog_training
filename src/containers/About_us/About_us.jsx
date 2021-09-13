@@ -3,7 +3,7 @@ import AOS from "aos";
 import { useHistory } from "react-router-dom";
 import pataText from "../../assets/Buenos_modales/pataText.png";
 import adiestramiento from "../../assets/Buenos_modales/adiestramiento.png";
-import instructor from "../../assets/Buenos_modales/instructor.jpeg";
+import instructor from "../../assets/Buenos_modales/team.png";
 import adies from "../../assets/Buenos_modales/adies.png";
 
 AOS.init();

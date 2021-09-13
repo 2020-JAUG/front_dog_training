@@ -1,7 +1,7 @@
 import React from "react";
 import meet from "../../assets/Buenos_modales/meet.png";
 import nutricion from "../../assets/Buenos_modales/nutricion.png";
-import braco from "../../assets/Buenos_modales/braco.jpeg";
+import braco from "../../assets/Buenos_modales/braco.png";
 import food from "../../assets/Buenos_modales/food.jpeg";
 
 const Alimentacion = () => {

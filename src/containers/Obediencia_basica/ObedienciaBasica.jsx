@@ -1,6 +1,6 @@
 import React from "react";
 import sit from "../../assets/Buenos_modales/sit3.png";
-import quieto from "../../assets/Buenos_modales/quieto.jpeg";
+import quieto from "../../assets/Buenos_modales/quieto.png";
 import bySide from "../../assets/Buenos_modales/bySide.png";
 import repeat from "../../assets/Buenos_modales/repeat.png";
 

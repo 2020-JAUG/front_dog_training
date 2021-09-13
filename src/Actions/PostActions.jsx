@@ -24,7 +24,7 @@ export function createPostAction(body) {
   return async (dispatch) => {
     dispatch(addPost());
     await axios
-      .post("http://localhost:5000/post", body, {
+      .post("https://jaug-dog-training.herokuapp.com/post", body, {
         headers: { authorization: "Bearer " + token },
       })
       .then((res) => {
@@ -35,7 +35,6 @@ export function createPostAction(body) {
       })
       .catch((err) => {
         console.log(err);
-        console.log(err.response.data);
         //But if there is an error, change the state
         dispatch(addPostError(true));
         //Alert error

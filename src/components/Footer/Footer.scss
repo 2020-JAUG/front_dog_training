@@ -165,5 +165,30 @@
       color: rgb(0, 0, 0);
       font-weight: bold;
     }
+
+    .column2 {
+      width: 55%;
+
+      .support {
+        height: 12em;
+        margin-right: 6em;
+
+        .phone {
+          width: 12em;
+          margin-left: 1em;
+        }
+      }
+
+      .follow {
+        height: 8em;
+        color: rgb(63, 59, 59);
+        cursor: pointer;
+        margin-right: 1em;
+
+        .redes {
+          margin-left: 0.3em;
+        }
+      }
+    }
   }
 }

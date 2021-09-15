@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import axios from "axios";
-import { ADD_COMMENT } from '../../redux/types';
+import { ADD_COMMENT_SUCCE } from "../../redux/types";
 
-const Comments = (props) => {
+const Comments = (props, postId) => {
   let history = useHistory();
-
+console.log(postId, 'comments')
   const [datos, setDatos] = useState({
-    id: props.data?.post,
+    id: props.data?.post.id,
     token: props.credentials?.token,
     user: props.credentials?.user,
     name: props.credentials?.user.name,
@@ -21,7 +21,7 @@ const Comments = (props) => {
     setDatos({ ...datos, [e.target.name]: e.target.value });
   };
 
-  const comment = async () => {
+  const comment = async (postId) => {
     let token = props.credentials?.token;
     // let user = datos.credentials?.user;
 
@@ -31,7 +31,7 @@ const Comments = (props) => {
       userName: datos.name,
       lastName: datos.lastName,
       content: datos.content,
-      postId: datos.id,
+      postId: datos.id
     };
     console.log("body", body);
     // Envío por axios
@@ -40,9 +40,9 @@ const Comments = (props) => {
         headers: { authorization: "Bearer " + token },
       })
       .then((res) => {
-        props.dispatch({ type: ADD_COMMENT, payload: res?.data });
+        props.dispatch({ type: ADD_COMMENT_SUCCE, payload: res?.data });
         setTimeout(() => {
-          history.push("/commonwall");
+          history.push("/");
         }, 150);
       })
       .catch((err) => {
@@ -52,40 +52,41 @@ const Comments = (props) => {
   };
 
   return (
-    <div>
-      <div className="card" Style="width: 18rem;">
-        <div className="card-body">
-          <div className="form-floating">
-            <div class="form-floating">
-              <textarea
-                name="content"
-                className="form-control"
-                onChange={handleChange}
-                value={datos.content}
-                placeholder="Leave a comment here"
-                id="floatingTextarea2"
-                Style="height: 100px"
-              ></textarea>
-              <label for="floatingTextarea2">Comments</label>
-            </div>
+    <>
+      <div className="edit" id="edit">
+        <div className="card comments col-md-6 offset-md-3">
+          <div className="card-body">
+              <h1 className="edit-post comment-title text-center">Add an comment</h1>
+              <div className="form-floating">
+                <textarea
+                  name="content"
+                  className="form-control parPost"
+                  onChange={handleChange}
+                  value={datos.content}
+                  placeholder="Leave a comment here"
+                  id="floatingTextarea2"
+                  Style="height: 100px"
+                ></textarea>
+                <label for="floatingTextarea2">Comments</label>
+              </div>
+              <div class="input-group mt-4 justify-content-center">
+                <button
+                  type="button"
+                  className="bottonHeader btn btn-outline-primary button_rent2 mt-4 mb-2"
+                  id="send_"
+                  onClick={() => comment(postId)}
+                >
+                  Send
+                </button>
+              </div>
           </div>
         </div>
       </div>
-      <div className="buttonSend card-footer text-center ">
-        <button
-          type="button"
-          className="bottonHeader btn btn-outline-primary button_rent2 mt-4 mb-2"
-          id="send_"
-          onClick={() => comment()}
-        >
-          Send
-        </button>
-      </div>
-    </div>
+    </>
   );
 };
 
 export default connect((state) => ({
   credentials: state.credentials,
-  post: state.post
+  data: state.data,
 }))(Comments);

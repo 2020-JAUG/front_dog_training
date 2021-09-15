@@ -6,8 +6,8 @@ import Swal from "sweetalert2";
 import { connect, useDispatch } from "react-redux";
 import { removePostAction, editPost, do_comment_post } from "../../Actions/PostActions";
 
-const Post = ( props ) => {
-  const { title, content, lastName, date, userName, id, userId } = props.mensaje;
+const Post = ( { post } ) => {
+  const { title, content, lastName, date, userName, id, userId } = post;
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -92,7 +92,7 @@ const Post = ( props ) => {
                   <Link
                     Style="cursor:pointer; color:black;"
                     className=" m-xxl-5"
-                    onClick={() => postToEdit(props.mensaje)}
+                    onClick={() => postToEdit(post)}
                   >
                     <span className="social">
                       <i className="fa fa-edit" color="black"></i>

@@ -6,7 +6,7 @@ import logo from "../../assets/Buenos_modales/pata1.png";
 import Navbar from "react-bootstrap/Navbar";
 import { Nav, NavDropdown } from "react-bootstrap";
 
-const Header2 = (props) => {
+const Header = (props) => {
   let history = useHistory();
 
   const logOut = () => {
@@ -182,4 +182,4 @@ const Header2 = (props) => {
 };
 export default connect((state) => ({
   credentials: state.credentials,
-}))(Header2);
+}))(Header);

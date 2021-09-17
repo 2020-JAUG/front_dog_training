@@ -61,7 +61,8 @@ const Login = (props) => {
   // };
 
 
-    const logueame = async () => {
+    const handleSubmit = async (event) => {
+      event.preventDefault();
         // A continuamos, generamos el body de datos
         let body = {
             email: credentials.email,
@@ -90,6 +91,14 @@ const Login = (props) => {
         });
     };
 
+    const handleKeypress = (event) => {
+      const code = event.keyCode || event.which;
+      if (code === 13) {//13 is the enter keycode
+        //Do stuff in here
+        handleSubmit(event);
+      }
+    };
+
   return (
     <div className="vistaLogin">
       <div className="loginCard">
@@ -103,6 +112,7 @@ const Login = (props) => {
               autoFocus="autoFocus"
               name="email"
               type="text"
+              onKeyPress={handleKeypress}
               onChange={updateCredentials}
               onBlur={() => checkError("email")}
               required
@@ -120,6 +130,7 @@ const Login = (props) => {
               className="input23"
               name="password"
               type="password"
+              onKeyPress={handleKeypress}
               onChange={updateCredentials}
               onBlur={() => checkError("password")}
               required
@@ -130,7 +141,7 @@ const Login = (props) => {
           </form>
         </div>
 
-        <div className="sendButton" onClick={() => logueame()}>
+        <div className="sendButton" onClick={(e) => handleSubmit(e)}>
           LOG IN
         </div>
         <div className="errorsText">{msgError.eValidate}</div>

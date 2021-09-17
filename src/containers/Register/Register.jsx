@@ -42,7 +42,8 @@ const Register = () => {
     setDatosUser({ ...datosUser, [e.target.name]: e.target.value });
   };
 
-  const applyRegister = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     let body = {
       name: datosUser.name,
@@ -144,9 +145,9 @@ const Register = () => {
 
       case "city":
         if (
-          datosUser.name.length < 2 ||
-          !/^[a-z ,.'-]+$/i.test(datosUser.name) ||
-          datosUser.name.length > 25
+          datosUser.city.length < 2 ||
+          !/^[a-z ,.'-]+$/i.test(datosUser.city) ||
+          datosUser.city.length > 25
         ) {
           setErrors({ ...errors, eCity: "*" });
         } else {
@@ -168,6 +169,13 @@ const Register = () => {
     return errorDefault;
   };
 
+  const handleKeypress = (event) => {
+    const code = event.keyCode || event.which;
+    if (code === 13) {//13 is the enter keycode
+      //Do stuff in here
+      handleSubmit(event);
+    }
+  };
   return (
     <div className="vistaRegister">
       <div className="formulario1">
@@ -179,6 +187,7 @@ const Register = () => {
               className="input"
               name="name"
               type="text"
+              onKeyPress={handleKeypress}
               onChange={updateFormulario}
               onBlur={() => checkError("name")}
               required
@@ -196,6 +205,7 @@ const Register = () => {
               className="input1"
               name="lastName"
               type="text"
+              onKeyPress={handleKeypress}
               onChange={updateFormulario}
               onBlur={() => checkError("LastName")}
               required
@@ -213,6 +223,7 @@ const Register = () => {
               className="input2"
               name="email"
               type="text"
+              onKeyPress={handleKeypress}
               onChange={updateFormulario}
               onBlur={() => checkError("email")}
               required
@@ -230,6 +241,7 @@ const Register = () => {
               className="input3"
               name="password"
               type="password"
+              onKeyPress={handleKeypress}
               onChange={updateFormulario}
               onBlur={() => checkError("password")}
               required
@@ -246,6 +258,7 @@ const Register = () => {
               className="input4"
               name="password2"
               type="password"
+              onKeyPress={handleKeypress}
               onChange={updateFormulario}
               onBlur={() => checkError("password2")}
               required
@@ -262,8 +275,9 @@ const Register = () => {
               className="input5"
               name="city"
               type="text"
+              onKeyPress={handleKeypress}
               onChange={updateFormulario}
-              onBlur={() => checkError("city")}
+              // onBlur={() => checkError("city")}
               required
             />
             <label className="lbl-nombre5">
@@ -272,7 +286,7 @@ const Register = () => {
           </form>
         </div>
 
-        <div className="registerButton" onClick={() => applyRegister()}>
+        <div className="registerButton" onClick={(e) => handleSubmit(e)}>
           GET STARTED
         </div>
       </div>

@@ -29,17 +29,87 @@ const Register = () => {
     eCity: "",
     eEmail: "",
   });
-
   //Salta el aviso de que el email ya esta registrado.
   const [, setNewMessage] = useState([]);
-
-  useEffect(() => {}, []);
-
-  useEffect(() => {});
 
   // Handler
   const updateFormulario = (e) => {
     setDatosUser({ ...datosUser, [e.target.name]: e.target.value });
+  };
+
+  const checkError = (arg) => {
+    switch (arg) {
+      case "name":
+        if(datosUser.name.length < 3){
+          setErrors({...errors, eName: '*'});
+      }else if(datosUser.name.length < 1){
+          setErrors({...errors, eName: '*'});
+      }else if (! /^[a-z AZ ñÑ,.'-]+$/i.test(datosUser.name) ) {
+          setErrors({...errors, eName: '*'});
+      }else{
+          setErrors({...errors, eName: ''});
+      }
+        break;
+
+      case "LastName":
+        if(datosUser.lastName.length < 1){
+          setErrors({...errors, eLastName: 'Field cannot be empty.'});
+      }else if (datosUser.lastName.length < 3){
+          setErrors({...errors, eLastName: 'Must be at least 3 characters.'});
+      }else if (! /^[a-z ´ ,.'-]+$/i.test(datosUser.lastName) ) {
+          setErrors({...errors, eLastName: 'Enter the format a valid.'});
+      }else{
+          setErrors({...errors, eLastName: ''});
+      }
+        break;
+
+      case "email":
+        if(datosUser.email.length < 1){
+          setErrors({...errors, eEmail: '*'});
+      }else if (datosUser.email.length < 4){
+          setErrors({...errors, eEmail: 'The email must be 4 characters.'});
+      }else if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(datosUser.email) ) {
+          setErrors({...errors, eEmail: 'Valid email format example@example.com.'});
+      }else{
+          setErrors({...errors, eEmail: ''});
+      }
+        break;
+
+      case "password":
+        if(datosUser.password.length < 1){
+          setErrors({...errors, ePassword: '*'});
+      }else if (datosUser.password.length < 6){
+          setErrors({...errors, ePassword: 'At least 8 characters, 1 capital letter, and 1 number.'});
+      }else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(datosUser.password) ) {
+          setErrors({...errors, ePassword: 'Enter the format a valid.'});
+      }else{
+          setErrors({...errors, ePassword: ''});
+      }
+        break;
+
+      case "password2":
+        if (datosUser.password !== datosUser.password2) {
+          setErrors({ ...errors, ePassword2: "Password should be the same" });
+        } else {
+          setErrors({ ...errors, ePassword2: "" });
+        }
+        break;
+
+      case "city":
+        if(datosUser.city.length < 1){
+          setErrors({...errors, eCity: '*'});
+      }else if(datosUser.city.length < 4){
+          setErrors({...errors, eCity: 'Must be at least 4 characters.'});
+      }else if (! /^[a-z AZ ñÑ,.'-]+$/i.test(datosUser.city) ) {
+          setErrors({...errors, eCity: 'Enter the format a valid.'});
+      }else{
+          setErrors({...errors, eCity: ''});
+      }
+        break;
+
+      default:
+        break;
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -54,7 +124,7 @@ const Register = () => {
     };
 
     axios
-      .post("https://jaug-dog-training.herokuapp.com/users ", body)
+      .post("https://jaug-dog-training.herokuapp.com/users", body)
       .then((res) => {
         setDatosUser(res.data.results);
         Swal.fire({
@@ -69,96 +139,19 @@ const Register = () => {
         history.push("/login");
       })
       .catch((err) => {
-        var errorText = err.response.data.message;
+        const errorText = err.response.data.message;
 
         if (errorText?.includes("email")) {
-          notification.warning({message: "Attention.",style: {top: 76,},description: JSON.stringify(err.response.data.message),});
+          notification.warning({ message: "Attention.", style: {top: 76,}, description: JSON.stringify('The email is already registered.')});
           setNewMessage(JSON.stringify("The email is already registered."));
         } else {
-          notification.warning({ message: "Attention.", style: {top: 76,}, description: JSON.stringify(err.response.data.message),});
+          notification.warning({message: "Attention.",style: {top: 76,},description: JSON.stringify(err.response.data.message)} );
           setNewMessage(JSON.stringify(err.response.data.message));
         }
       });
   };
 
-  const checkError = (arg) => {
-    switch (arg) {
-      case "name":
-        if (
-          datosUser.name.length < 2 ||
-          !/^[a-z ,.'-]+$/i.test(datosUser.name) ||
-          datosUser.name.length > 25
-        ) {
-          setErrors({ ...errors, eName: "*" });
-        } else {
-          setErrors({ ...errors, eName: "" });
-        }
-        break;
 
-      case "LastName":
-        if (
-          datosUser.name.length < 2 ||
-          !/^[a-z ,.'-]+$/i.test(datosUser.name) ||
-          datosUser.name.length > 25
-        ) {
-          setErrors({ ...errors, eLastName: "*" });
-        } else {
-          setErrors({ ...errors, eLastName: "" });
-        }
-        break;
-
-      case "email":
-        if (
-          !/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g.test(
-            datosUser.email
-          )
-        ) {
-          setErrors({ ...errors, eEmail: "*" });
-        } else {
-          setErrors({ ...errors, eEmail: "" });
-        }
-        break;
-
-      case "password":
-        if (
-          !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(
-            datosUser.password
-          )
-        ) {
-          setErrors({
-            ...errors,
-            ePassword:
-              "At least 8 characters, 1 capital letter, and 1 number.",
-          });
-        } else {
-          setErrors({ ...errors, ePassword: "" });
-        }
-        break;
-
-      case "password2":
-        if (datosUser.password !== datosUser.password2) {
-          setErrors({ ...errors, ePassword2: "Password should be the same" });
-        } else {
-          setErrors({ ...errors, ePassword2: "" });
-        }
-        break;
-
-      case "city":
-        if (
-          datosUser.city.length < 2 ||
-          !/^[a-z ,.'-]+$/i.test(datosUser.city) ||
-          datosUser.city.length > 25
-        ) {
-          setErrors({ ...errors, eCity: "*" });
-        } else {
-          setErrors({ ...errors, eCity: "" });
-        }
-        break;
-
-      default:
-        break;
-    }
-  };
   const errorStyle = (arg) => {
     let errorDefault = "name";
     let errorWarning = "red";
@@ -277,7 +270,7 @@ const Register = () => {
               type="text"
               onKeyPress={handleKeypress}
               onChange={updateFormulario}
-              // onBlur={() => checkError("city")}
+              onBlur={() => checkError("city")}
               required
             />
             <label className="lbl-nombre5">

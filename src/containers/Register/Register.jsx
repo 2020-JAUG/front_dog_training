@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
@@ -29,8 +28,6 @@ const Register = () => {
     eCity: "",
     eEmail: "",
   });
-  //Salta el aviso de que el email ya esta registrado.
-  const [, setNewMessage] = useState([]);
 
   // Handler
   const updateFormulario = (e) => {
@@ -115,6 +112,15 @@ const Register = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    //Check the form
+    if (datosUser.name.trim() === "" || datosUser.lastName.trim() === "" || datosUser.password.trim() === "" || datosUser.password2.trim() === "" || datosUser.city.trim() === "" || datosUser.email.trim() === "") {
+      Swal.fire({
+        icon: "error",
+        title: "Was a mistake",
+        text: "Try again.",
+      });
+      return;
+    }
     let body = {
       name: datosUser.name,
       lastName: datosUser.lastName,
@@ -124,7 +130,7 @@ const Register = () => {
     };
 
     axios
-      .post("https://jaug-dog-training.herokuapp.com/users", body)
+      .post("http://localhost:5000/users", body)
       .then((res) => {
         setDatosUser(res.data.results);
         Swal.fire({
@@ -138,28 +144,9 @@ const Register = () => {
         })
         history.push("/login");
       })
-      .catch((err) => {
-        const errorText = err.response.data.message;
-
-        if (errorText?.includes("email")) {
-          notification.warning({ message: "Attention.", style: {top: 76,}, description: JSON.stringify('The email is already registered.')});
-          setNewMessage(JSON.stringify("The email is already registered."));
-        } else {
-          notification.warning({message: "Attention.",style: {top: 76,},description: JSON.stringify(err.response.data.message)} );
-          setNewMessage(JSON.stringify(err.response.data.message));
-        }
+      .catch((err) => {//Recibo el mensaje desde el middleware del backend. checkMail.js
+          notification.warning({ message: "Attention.", style: {top: 76,}, description: JSON.stringify(err.response.data.message)});
       });
-  };
-
-
-  const errorStyle = (arg) => {
-    let errorDefault = "name";
-    let errorWarning = "red";
-
-    if (errors.eName !== "") {
-      return errorWarning;
-    }
-    return errorDefault;
   };
 
   const handleKeypress = (event) => {
@@ -262,7 +249,7 @@ const Register = () => {
           </form>
         </div>
         <div className="box1">
-          <div className="errorsText">{errors.eCity}</div>
+          <div className="errorsText2">{errors.eCity}</div>
           <form className="form5">
             <input
               className="input5"

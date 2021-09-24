@@ -26,12 +26,16 @@ const Login = (props) => {
     const checkError = async (arg) => {
         switch (arg) {
         case "email":
-            if (credentials.email.length < 1 ) {
-            setMensajeError({ ...msgError, eEmail: "Enter a valid mail" });
-            } else {
-            setMensajeError({ ...msgError, eEmail: "" });
-            }
-            break;
+          if(credentials.email.length < 1){
+            setMensajeError({...msgError, eEmail: '*'});
+        }else if (credentials.email.length < 4){
+            setMensajeError({...msgError, eEmail: 'The email must be 4 characters.'});
+        }else if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(credentials.email) ) {
+            setMensajeError({...msgError, eEmail: 'Valid email format example@example.com.'});
+        }else{
+            setMensajeError({...msgError, eEmail: ''});
+        }
+        break;
 
         case "password":
             if (credentials.password.length < 1 ) {

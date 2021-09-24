@@ -54,18 +54,18 @@ const Admin = (props) => {
                         <div className="row">
                           <div className="col-xl-6">
                             <h4 className="m-b-20  f-w-600">Email</h4>
-                            <h6 className="f-w-400">
+                            <h6 className="f-w-400 datos-user">
                               {props.credentials?.user.email}
                             </h6>
                             <br />
                           </div>
                           <div className="col-sm-6">
                             <h4 className="m-b-20 f-w-600">City</h4>
-                            <h6>{props.credentials?.user.city}</h6>
+                            <h6 className="f-w-400 datos-user">{props.credentials?.user.city}</h6>
                           </div>
                           <div className="col-sm-6 offset-md-3">
                             <h4 className="m-b-20 f-w-600">CREATE COUNT</h4>
-                            <h6 className="f-w-400">
+                            <h6 className="f-w-400 datos-user">
                               {moment(props.credentials?.user.createdAt).format(
                                 "LL"
                               )}
@@ -97,8 +97,7 @@ const Admin = (props) => {
                               USERS
                             </h4>
                           </div>
-                          <br/>
-                          <div className="col-sm-6 offset-md-3">
+                          <div className="col-sm-12">
                             <h4
                               className="m-b-10 f-w-600"
                               Style="cursor:pointer;"

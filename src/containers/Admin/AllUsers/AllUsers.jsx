@@ -18,7 +18,8 @@ const AllUsers = (props) => {
 
   if (users[0]?.id) {
     return (
-      <div className="returnPosts container">
+      <div className="return-users">
+      <div className="container">
         <table className="table table-responsive table-bordered border-0">
           <thead className="thead-dark border-1 bg-dark text-white">
             <tr>
@@ -41,6 +42,7 @@ const AllUsers = (props) => {
             ))}
           </tbody>
         </table>
+      </div>
       </div>
     );
   } else {

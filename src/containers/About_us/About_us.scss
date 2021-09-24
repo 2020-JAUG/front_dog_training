@@ -1,6 +1,6 @@
 .mainAbout {
-  height: 75vh;
-  padding: 2rem;
+  height: 100vh;
+  padding: 6rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,7 +9,9 @@
   background: #fff;
 
   .vinculo {
+    color: #1b1316;
     font-size: 5rem;
+    font-weight: bold;
   }
 }
 
@@ -149,6 +151,10 @@
       right: -240px;
     }
   }
+  .mainAbout {
+    height: 100vh;
+    padding: 1rem;
+  }
 }
 @media (max-width: 414px) {
   .cardAbout {
@@ -158,7 +164,7 @@
   .mainAbout {
     top: 3em;
     height: 100vh;
-    padding: 0rem;
+    padding: 2.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;

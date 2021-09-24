@@ -60,8 +60,8 @@ const Home = () => {
         <div className="row row-cols-md-6 justify-content-evenly">
           <div className="option text-center">
             <div className="card-body" id="carta">
-              <div className="card" Style="width: 16.8em; height:26.5em;">
-                <div className="card-body">
+              <div className="card cartas-home" Style="width: 16.8em; height:26.5em;">
+                <div className="card-body cartas-home">
                   <h5 className="card-title text-center" id="home-parr">
                     ADIESTRADORES
                   </h5>
@@ -80,8 +80,8 @@ const Home = () => {
           </div>
           <div className="option text-center">
             <div className="card-body" id="carta">
-              <div className="card" Style="width: 16.8em; height:26.5em;">
-                <div className="card-body">
+              <div className="card cartas-home" Style="width: 16.8em; height:26.5em;">
+                <div className="card-body cartas-home">
                   <h5 className="card-title text-center" id="home-parr">
                     CONTÁCTANOS
                   </h5>
@@ -100,8 +100,8 @@ const Home = () => {
           </div>
           <div className="option text-center">
             <div className="card-body" id="carta">
-              <div className="card" Style="width: 16.8em; height:26.5em;">
-                <div className="card-body">
+              <div className="card cartas-home" Style="width: 16.8em; height:26.5em;">
+                <div className="card-body cartas-home">
                   <h5 className="card-title text-center" id="home-parr">
                     SOBRE NOSOTROS
                   </h5>

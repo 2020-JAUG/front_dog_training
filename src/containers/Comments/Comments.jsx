@@ -31,6 +31,7 @@ console.log(postId, 'comments')
       userName: datos.name,
       lastName: datos.lastName,
       content: datos.content,
+      date: new Date(),
       postId: datos.id
     };
     console.log("body", body);

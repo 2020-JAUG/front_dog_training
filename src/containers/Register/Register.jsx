@@ -130,7 +130,7 @@ const Register = () => {
     };
 
     axios
-      .post("http://localhost:5000/users", body)
+      .post("https://jaug-dog-training.herokuapp.com/users", body)
       .then((res) => {
         setDatosUser(res.data.results);
         Swal.fire({

@@ -4,104 +4,89 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { LOGIN } from "../../redux/types.js";
 import Swal from "sweetalert2";
-// import { handleSubmit } from '../../Actions/UserActions';
 
 const Login = (props) => {
-  // const dispatch = useDispatch();
+  const history = useHistory();
 
-    const history = useHistory();
-
-    const [credentials, setCredentials] = useState({ email: "", password: "" });
-    const [msgError, setMensajeError] = useState({
-        eEmail: "",
-        ePassword: "",
-        eValidate: "",
-    });
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [msgError, setMensajeError] = useState({
+    eEmail: "",
+    ePassword: "",
+    eValidate: "",
+  });
 
     // Esto es un Handler
-    const updateCredentials = (e) => {
-        setCredentials({ ...credentials, [e.target.name]: e.target.value });
-    };
+  const updateCredentials = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
 
-    const checkError = async (arg) => {
-        switch (arg) {
-        case "email":
-          if(credentials.email.length < 1){
-            setMensajeError({...msgError, eEmail: '*'});
+  const checkError = async (arg) => {
+    switch (arg) {
+      case "email":
+        if(credentials.email.length < 1){
+          setMensajeError({...msgError, eEmail: '*'});
         }else if (credentials.email.length < 4){
-            setMensajeError({...msgError, eEmail: 'The email must be 4 characters.'});
-        }else if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(credentials.email) ) {
-            setMensajeError({...msgError, eEmail: 'Valid email format example@example.com.'});
-        }else{
-            setMensajeError({...msgError, eEmail: ''});
+          setMensajeError({...msgError, eEmail: 'The email must be 4 characters.'});
+        } else if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(credentials.email) ) {
+          setMensajeError({...msgError, eEmail: 'Valid email format example@example.com.'});
+        } else {
+          setMensajeError({...msgError, eEmail: ''});
         }
         break;
 
         case "password":
-            if (credentials.password.length < 1 ) {
+          if (credentials.password.length < 1 ) {
             setMensajeError({
-                ...msgError,
-                ePassword: "Please enter your password.",
+              ...msgError,
+              ePassword: "Please enter your password.",
             });
-            } else {
+          } else {
             setMensajeError({ ...msgError, ePassword: "" });
-            }
-            break;
+          }
+          break;
 
         default:
-            break;
+        break;
     }
   };
 
-  //Here we call the action from PostActions
-  // const login = (body) => dispatch(handleSubmit(body));
-  // const logueame = (e) => {
-  //   e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+      // A continuamos, generamos el body de datos
+      let body = {
+        email: credentials.email,
+        password: credentials.password,
+      };
 
-  //   login({
-  //     email: credentials.email,
-  //     password: credentials.password,
-  //   });
-  // };
+      // Envío por axios
+      axios
+      .post("https://jaug-dog-training.herokuapp.com/login", body)
+      .then((res) => {
+        //Guardo en RDX
+        props.dispatch({ type: LOGIN, payload: res.data });
 
-
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-        // A continuamos, generamos el body de datos
-        let body = {
-            email: credentials.email,
-            password: credentials.password,
-        };
-
-        // Envío por axios
-        axios
-        .post("https://jaug-dog-training.herokuapp.com/login", body)
-        .then((res) => {
-          //Guardo en RDX
-          props.dispatch({ type: LOGIN, payload: res.data });
-
-          if (!res.data.user.isAdmin) {
-            history.push("/commonwall");
-          } else {
-            history.push("/commonwall");
-          }
-        })
-        .catch((err) => {
-          Swal.fire({
-            icon: "error",
-            title: "Was a mistake",
-            text: "Try again.",
-          });
+        if (!res.data.user.isAdmin) {
+          history.push("/commonwall");
+        } else {
+          history.push("/commonwall");
+        }
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Was a mistake",
+          text: "Try again.",
         });
-    };
+      });
+  };
 
-    const handleKeypress = (event) => {
-      const code = event.keyCode || event.which;
-      if (code === 13) {//13 is the enter keycode
-        //Do stuff in here
-        handleSubmit(event);
-      }
-    };
+  const handleKeypress = (event) => {
+    const code = event.keyCode || event.which;
+    if (code === 13) {//13 is the enter keycode
+      //Do stuff in here
+      handleSubmit(event);
+    }
+  };
 
   return (
     <div className="vistaLogin">

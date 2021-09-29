@@ -52,14 +52,14 @@ const CommentPosts = ( { msg } ) => {
                 <div className="card-body carta">
                   <p className="card-text parPost">{content}</p>
                   <hr />
-                  <small className="">
+                  <small>
                     <span className="social">
-                    <div className="profile-comment comment img-center" id="img-center">
-                        <img
-                            src={pensando}
-                            className="profile-img"
-                            alt="100x100"
-                        />
+                    <div className="profile-comment comment img-center" id="a1">
+                      <img
+                        src={pensando}
+                        className="profile-img"
+                        alt="100x100"
+                      />
                     </div>
                     </span>
                     &nbsp;

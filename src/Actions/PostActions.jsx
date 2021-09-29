@@ -262,23 +262,20 @@ const get_id_post = (post) => ({
 });
 
 export function do_comment_post(body) {
-  console.log("bodyCommentAction");
   const token = store.getState().credentials.token;
   return async (dispatch) => {
     // dispatch(addComment());
     await axios
-      .post("http://localhost:5000/comments", body, {
+      .post("https://jaug-dog-training.herokuapp.com/comments", body, {
         headers: { authorization: "Bearer " + token },
       })
       .then((res) => {
         dispatch(add_comment_succe(body)); //This is to state
-        //Alert
         Swal.fire("Correct", "The post was added successfully.", "success");
       })
       .catch((err) => {
         console.log(err);
-        console.log(err.response);
-        //But if there is an error, change the state
+        // console.log(err.response);
         dispatch(add_comment_error(true));
         //Alert error
         Swal.fire({

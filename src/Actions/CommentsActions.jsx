@@ -9,17 +9,15 @@ import {
 
 export function get_comment_actions(body) {
   const token = store.getState().credentials.token;
-  //Note getCommentActions, run the function wownloadProducts
   return async (dispatch) => {
     dispatch(downloadComments());
 
     await axios
-      .post("http://localhost:5000/comments/bypostid", body, {
+      .post("https://jaug-dog-training.herokuapp.com/comments/bypostid", body, {
         headers: { authorization: "Bearer " + token },
       })
       .then((res) => {
-        dispatch(download_comments_succe(res.data)); //Put dispatch if the call is succe
-        console.log('resCOMMENTS', res.data);
+        dispatch(download_comments_succe(body)); //Put dispatch if the call is succe
       })
       .catch((err) => {
         // console.log(err.response.data);

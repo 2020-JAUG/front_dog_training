@@ -1,6 +1,7 @@
 body {
   overflow-x: hidden;
 }
+
 .profile-comment {
   display: flex;
   align-items: center;
@@ -45,12 +46,27 @@ body {
   .social {
     padding: 2px;
   }
+  #a1 {
+    left: -0.1em;
+    top: -1em;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  #a1 {
+    left: -0.1em;
+    top: -1em;
+  }
 }
 
 @media (max-width: 375px) {
-    #row-comment {
-        width: 22em;
-        left: 0.6em;
-        top: -3.5em;
-    }
+  #a1 {
+    left: -0.1em;
+    top: -1em;
+    float: left;
+  }
+  .row {
+    left: 1.1em;
+  }
 }

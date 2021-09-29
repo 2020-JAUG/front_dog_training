@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { connect, useSelector, useDispatch } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -8,7 +8,6 @@ import CommentPosts from "../../components/CommentsPost/CommentPosts";
 import { ADD_COMMENT_SUCCE } from "../../redux/types";
 
 const Comments = (props) => {
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const [datos, setDatos] = useState({
@@ -32,12 +31,21 @@ const Comments = (props) => {
   useEffect(() => {
     const token = props.credentials?.token;
     const fetchData = async () => {
-      const result = await axios
-      .post('https://jaug-dog-training.herokuapp.com/comments/bypostid', postId,  {
+      await axios
+      .post('http://localhost:5000/comments/bypostid', postId,  {
         headers: { authorization: "Bearer " + token },
       })
-      set_user_commments(result.data)
-      console.log(result.data);
+      .then((res) => {
+        set_user_commments(res.data)
+      })
+      .catch((err) => {
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Was a mistake",
+          text: "Try again.",
+        });
+      });
     };
     fetchData();
   }, [postId, props.credentials?.token]);

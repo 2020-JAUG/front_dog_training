@@ -5,7 +5,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import CommentPosts from "../../components/CommentsPost/CommentPosts";
 //RDX
-import { ADD_COMMENT_SUCCE, GET_COMMENTS_ERROR } from "../../redux/types";
+import { ADD_COMMENT_SUCCE } from "../../redux/types";
 
 const Comments = (props) => {
   const dispatch = useDispatch();
@@ -26,35 +26,25 @@ const Comments = (props) => {
   };
 
   //Access to the state to take the postId
-  const postId = useSelector((state) => state.post.post);
+  const postId = useSelector((state) => state.data.post);
 
   //Call to the DDBB
   useEffect(() => {
+    const token = props.credentials?.token;
     const fetchData = async () => {
-      let token = props.credentials?.token;
       const result = await axios
       .post('https://jaug-dog-training.herokuapp.com/comments/bypostid', postId,  {
         headers: { authorization: "Bearer " + token },
       })
-      .catch((err) => {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Was a mistake.",
-        });
-        console.log(err);
-        dispatch({ payload: GET_COMMENTS_ERROR });
-      })
-      set_user_commments(result.data);
+      set_user_commments(result.data)
+      console.log(result.data);
     };
-
     fetchData();
-  }, [dispatch, postId, props.credentials?.token]);
+  }, [postId, props.credentials?.token]);
 
   //Function to create a comment
   const comment = async (postId) => {
     let token = props.credentials?.token;
-    console.log("postIDDDD", postId.id);
     let body = {
       userId: datos.user.id,
       userName: datos.name,
@@ -162,5 +152,5 @@ const Comments = (props) => {
 
 export default connect((state) => ({
   credentials: state.credentials,
-  post: state.post,
+  data: state.data.post,
 }))(Comments);

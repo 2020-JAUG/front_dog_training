@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { connect, useSelector } from "react-redux";
+import { connect, useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import axios from "axios";
 import Swal from "sweetalert2";
 import CommentPosts from "../../components/CommentsPost/CommentPosts";
 //RDX
-import { ADD_COMMENT_SUCCE } from "../../redux/types";
-// import { get_comment_actions } from "../../Actions/CommentsActions";
+import { ADD_COMMENT_SUCCE, GET_COMMENTS_ERROR } from "../../redux/types";
 
 const Comments = (props) => {
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const [datos, setDatos] = useState({
@@ -28,10 +28,28 @@ const Comments = (props) => {
   //Access to the state to take the postId
   const postId = useSelector((state) => state.post.post);
 
+  //Call to the DDBB
   useEffect(() => {
-    findComments(postId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const fetchData = async () => {
+      let token = props.credentials?.token;
+      const result = await axios
+      .post('https://jaug-dog-training.herokuapp.com/comments/bypostid', postId,  {
+        headers: { authorization: "Bearer " + token },
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Was a mistake.",
+        });
+        console.log(err);
+        dispatch({ payload: GET_COMMENTS_ERROR });
+      })
+      set_user_commments(result.data);
+    };
+
+    fetchData();
+  }, [dispatch, postId, props.credentials?.token]);
 
   //Function to create a comment
   const comment = async (postId) => {
@@ -47,7 +65,7 @@ const Comments = (props) => {
     };
 
     axios
-      .post("http://localhost:5000/comments", body, {
+      .post("https://jaug-dog-training.herokuapp.com/comments", body, {
         headers: { authorization: "Bearer " + token },
       })
       .then((res) => {
@@ -61,28 +79,6 @@ const Comments = (props) => {
         // console.log(err.response.data.message);
         console.log("Err");
       });
-  };
-
-  const findComments = async (body) => {
-    let token = props.credentials?.token;
-
-    await axios
-    .post("http://localhost:5000/comments/bypostid", body, {
-      headers: { authorization: "Bearer " + token },
-    })
-    .then((res) => {
-      props.dispatch(res.data); //Put dispatch if the call is succe
-      set_user_commments(res.data);
-      console.log('DESDECOMMENTS', res.data);
-    })
-    .catch((err) => {
-      console.log(err);
-      Swal.fire({
-        icon: "error",
-        title: "Was a mistake",
-        text: "Try again.",
-      });
-    });
   };
 
   if (!user_comments[0]?.id) {

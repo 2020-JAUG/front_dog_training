@@ -14,6 +14,10 @@ export const GET_POST = 'get_post';
 export const GET_POST_SUCCE = 'get_post_succe';
 export const GET_POST_ERROR = 'get_post_error';
 
+export const GET_COMMENTS = 'get_comments';
+export const GET_COMMENTS_SUCCE = 'get_comments_succe';
+export const GET_COMMENTS_ERROR = 'get_comments_error';
+
 export const GET_USER = 'get_user';
 export const GET_USER_SUCCE = 'get_user_succe';
 export const GET_USER_ERROR = 'get_user_error';

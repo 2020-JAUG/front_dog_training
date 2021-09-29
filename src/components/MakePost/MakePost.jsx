@@ -21,7 +21,7 @@ const MakePost = (props) => {
   const dispatch = useDispatch();
 
   //Access to the state
-  const loading = useSelector((state) => state.data.post.loading);
+  const loading = useSelector((state) => state.data.loading);
 
   //Here we call the action from PostActions
   const addPost = (body) => dispatch(createPostAction(body));

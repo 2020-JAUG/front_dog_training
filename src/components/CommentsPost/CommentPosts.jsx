@@ -1,17 +1,17 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import Swal from "sweetalert2";
 import pensando from "../../assets/Buenos_modales/orejon.png";
 //RDX
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 // import { remove_comment_actions, editPost, post_to_comment } from "../../Actions/CommentsActions";
 
 const CommentPosts = ( { msg } ) => {
   const { content, lastName, date, userName, id, userId } = msg;
 
-  const dispatch = useDispatch();
-  const history = useHistory();
+//   const dispatch = useDispatch();
+//   const history = useHistory();
 
   const confirmRemove = (postId, userId) => {
     Swal.fire({

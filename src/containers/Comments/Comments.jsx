@@ -1,49 +1,60 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { connect, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import axios from "axios";
+import Swal from "sweetalert2";
+import CommentPosts from "../../components/CommentsPost/CommentPosts";
+//RDX
 import { ADD_COMMENT_SUCCE } from "../../redux/types";
+// import { get_comment_actions } from "../../Actions/CommentsActions";
 
-const Comments = (props, postId) => {
-  let history = useHistory();
-console.log(postId, 'comments')
+const Comments = (props) => {
+  const history = useHistory();
+
   const [datos, setDatos] = useState({
-    id: props.data?.post.id,
-    token: props.credentials?.token,
     user: props.credentials?.user,
     name: props.credentials?.user.name,
     lastName: props.credentials?.user.lastName,
     content: "",
   });
 
+  const [user_comments, set_user_commments] = useState([]);
+
   // Handler to upgrade the input
   const handleChange = (e) => {
     setDatos({ ...datos, [e.target.name]: e.target.value });
   };
 
+  //Access to the state to take the postId
+  const postId = useSelector((state) => state.post.post);
+
+  useEffect(() => {
+    findComments(postId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  //Function to create a comment
   const comment = async (postId) => {
     let token = props.credentials?.token;
-    // let user = datos.credentials?.user;
-
-    // A continuamos, generamos el body de datos
+    console.log("postIDDDD", postId.id);
     let body = {
       userId: datos.user.id,
       userName: datos.name,
       lastName: datos.lastName,
       content: datos.content,
       date: new Date(),
-      postId: datos.id
+      postId: postId.id,
     };
-    console.log("body", body);
-    // Envío por axios
+
     axios
       .post("http://localhost:5000/comments", body, {
         headers: { authorization: "Bearer " + token },
       })
       .then((res) => {
         props.dispatch({ type: ADD_COMMENT_SUCCE, payload: res?.data });
+        set_user_commments(res.data);
         setTimeout(() => {
-          history.push("/");
+          history.push("/commonwall");
         }, 150);
       })
       .catch((err) => {
@@ -52,18 +63,43 @@ console.log(postId, 'comments')
       });
   };
 
-  return (
-    <>
-      <div className="edit" id="edit">
-        <div className="card comments col-md-6 offset-md-3">
-          <div className="card-body">
-              <h1 className="edit-post comment-title text-center">Add an comment</h1>
+  const findComments = async (body) => {
+    let token = props.credentials?.token;
+
+    await axios
+    .post("http://localhost:5000/comments/bypostid", body, {
+      headers: { authorization: "Bearer " + token },
+    })
+    .then((res) => {
+      props.dispatch(res.data); //Put dispatch if the call is succe
+      set_user_commments(res.data);
+      console.log('DESDECOMMENTS', res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+      Swal.fire({
+        icon: "error",
+        title: "Was a mistake",
+        text: "Try again.",
+      });
+    });
+  };
+
+  if (!user_comments[0]?.id) {
+    return (
+      <>
+        <div>
+          <div className="card comments col-md-6 offset-md-3">
+            <div className="card-body">
+              <h1 className="edit-post comment-title text-center">
+                Add a comment
+              </h1>
               <div className="form-floating">
                 <textarea
                   name="content"
                   className="form-control parPost"
                   onChange={handleChange}
-                  value={datos.content}
+                  type="text"
                   placeholder="Leave a comment here"
                   id="floatingTextarea2"
                   Style="height: 100px"
@@ -72,7 +108,7 @@ console.log(postId, 'comments')
               </div>
               <div class="input-group mt-4 justify-content-center">
                 <button
-                  type="button"
+                  type="submit"
                   className="bottonHeader btn btn-outline-primary button_rent2 mt-4 mb-2"
                   id="send_"
                   onClick={() => comment(postId)}
@@ -80,14 +116,56 @@ console.log(postId, 'comments')
                   Send
                 </button>
               </div>
+            </div>
           </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  } else {
+    return (
+      <>
+      <div className="comment">
+          <div className="card comments col-md-6 offset-md-3">
+            <div className="card-body">
+              <h1 className="edit-post comment-title text-center">
+                Add a comment
+              </h1>
+              <div className="form-floating">
+                <textarea
+                  name="content"
+                  className="form-control parPost"
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Leave a comment here"
+                  id="floatingTextarea2"
+                  Style="height: 100px"
+                ></textarea>
+                <label for="floatingTextarea2">Comments</label>
+              </div>
+              <div class="input-group mt-4 justify-content-center">
+                <button
+                  type="submit"
+                  className="bottonHeader btn btn-outline-primary button_rent2 mt-4 mb-2"
+                  id="send_"
+                  onClick={() => comment(postId)}
+                >
+                  Send
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="container-fluir" id="margin">
+        <div className="row">
+        {user_comments.map((msg) => <CommentPosts key={msg.id} msg={msg} />)}
+        </div>
+        </div>
+      </>
+    );
+  }
 };
 
 export default connect((state) => ({
   credentials: state.credentials,
-  data: state.data,
+  post: state.post,
 }))(Comments);

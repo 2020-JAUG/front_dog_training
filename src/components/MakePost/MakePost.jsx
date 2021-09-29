@@ -21,7 +21,7 @@ const MakePost = (props) => {
   const dispatch = useDispatch();
 
   //Access to the state
-  const loading = useSelector((state) => state.post.loading);
+  const loading = useSelector((state) => state.data.post.loading);
 
   //Here we call the action from PostActions
   const addPost = (body) => dispatch(createPostAction(body));
@@ -119,5 +119,5 @@ const MakePost = (props) => {
 
 export default connect((state) => ({
   credentials: state.credentials,
-  post: state.post,
+  data: state.data.post,
 }))(MakePost);

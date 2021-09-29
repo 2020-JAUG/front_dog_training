@@ -70,5 +70,5 @@ const CommonWall = (props) => {
 
 export default connect((state) => ({
   credentials: state.credentials,
-  post: state.post,
+  data: state.data.post,
 }))(CommonWall);

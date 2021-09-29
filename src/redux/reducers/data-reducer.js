@@ -20,14 +20,14 @@ import {
 } from "../types";
 
 const initialState = {
-  post: [{}],
+  post: [],
   error: false,
   loading: false,
   removepost: null,
   editpost: null,
 };
 
-const postReducer = (state = initialState, action) => {
+const dataReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_POST:
     case GET_USER:
@@ -88,4 +88,4 @@ const postReducer = (state = initialState, action) => {
   }
 };
 
-export default postReducer;
+export default dataReducer;

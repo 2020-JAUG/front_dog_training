@@ -4,10 +4,10 @@ import moment from "moment";
 import Swal from "sweetalert2";
 //RDX
 import { connect, useDispatch } from "react-redux";
-import { removePostAction, editPost, do_comment_post } from "../../Actions/PostActions";
+import { removePostAction, editPost, post_to_comment } from "../../Actions/PostActions";
 
-const Post = ( { post } ) => {
-  const { title, content, lastName, date, userName, id, userId } = post;
+const Post = ( { msg } ) => {
+  const { title, content, lastName, date, userName, id, userId } = msg;
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -30,14 +30,13 @@ const Post = ( { post } ) => {
     });
   };
   //Pass the post to RDX
-  const postToEdit = (post) => {
-    dispatch(editPost(post));
+  const postToEdit = (msg) => {
+    dispatch(editPost(msg));
     history.push("/editPost");
   };
 
   const doComment = (postId) => {
-    console.log(postId,'commentId-desde-post.jsx')
-    dispatch(do_comment_post(postId));
+    dispatch(post_to_comment(postId));
     history.push("/comments");
   };
 
@@ -82,7 +81,7 @@ const Post = ( { post } ) => {
                   <span
                     Style="cursor:pointer;"
                     className=" m-xxl-5"
-                    onClick={() => doComment(id)}
+                    onClick={() => doComment(msg)}
                   >
                     <span className="social">
                       <i className="fa fa-comments" color="black"></i>
@@ -92,7 +91,7 @@ const Post = ( { post } ) => {
                   <Link
                     Style="cursor:pointer; color:black;"
                     className=" m-xxl-5"
-                    onClick={() => postToEdit(post)}
+                    onClick={() => postToEdit(msg)}
                   >
                     <span className="social">
                       <i className="fa fa-edit" color="black"></i>

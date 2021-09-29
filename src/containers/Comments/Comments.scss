@@ -2,4 +2,19 @@
   background: linear-gradient(rgba(83, 80, 81, 0.132), rgba(95, 90, 92, 0.139));
   border-radius: 0.3em;
   height: 21em;
+  position: relative;
+  display: flex;
+  top: -1em;
+  height: 100%;
+  margin-bottom: 22em;
+
+  .comment-title {
+    color: rgb(226, 24, 122);
+    font-size: 3rem;
+    font-weight: bold;
+  }
+}
+#margin {
+  position: relative;
+  top: -5em;
 }

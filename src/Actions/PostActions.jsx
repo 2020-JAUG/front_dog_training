@@ -108,22 +108,20 @@ const downloadPostError = () => ({
 //Get userPosts
 export function get_user_post() {
   const token = store.getState().credentials.token;
-  const body = store.getState().credentials.user.id;
-
+  const body = store.getState().credentials.user;
   return async (dispatch) => {
     dispatch(download_user_post());
 
     await axios
-      .post("https://jaug-dog-training.herokuapp.com/post/userpost", body, {
+      .post("http://localhost:5000/post/userpost", body, {
         headers: { authorization: "Bearer " + token },
       })
       .then((res) => {
-        console.log(body, "despues de la res");
         dispatch(user_post_succe(res.data)); //Put dispatch if the call is succe
       })
       .catch((err) => {
         console.log(err);
-        // console.log(err.response.data);
+        console.log(err.response.data);
         dispatch(user_post_error());
         //Alert error
         Swal.fire({

@@ -8,19 +8,21 @@ import Swal from "sweetalert2";
 
 //ACTIONS OF RDX
 import { removePostAction, editPost, get_user_post } from "../../../Actions/PostActions";
+import store from '../../../redux/store';
 
 const userPost = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
    //Access to the states
-   const userPost = useSelector((state) => state.post);
+   const userPost = useSelector((state) => state.data.post);
+   const  body = store.getState().credentials.user;
 
   useEffect(() => {
     //Consult the API
-    const findPost = () => dispatch(get_user_post());
+    const findPost = () => dispatch(get_user_post(body));
     findPost();
-  }, [dispatch]);
+  }, [body, dispatch]);
 
   const confirmRemove = (postId, userId) => {
     Swal.fire({
@@ -102,5 +104,5 @@ const userPost = () => {
 
 export default connect((state) => ({
   credentials: state.credentials,
-  post: state.post
+  data: state.data
 }))(userPost);

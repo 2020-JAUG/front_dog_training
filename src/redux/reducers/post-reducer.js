@@ -58,7 +58,7 @@ const postReducer = (state = initialState, action) => {
 
     case ADD_COMMENT_SUCCE:
       return {...state, loading: false,
-        post: [...state.post, action.payload]
+        // post: [...state.post, action.payload]
       }
 
     case GET_REMOVE_POST:

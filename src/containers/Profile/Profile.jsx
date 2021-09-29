@@ -43,13 +43,13 @@ const Profile = (props) => {
                   <div className="row m-l-0 m-r-0">
                     <div className="col-sm-12 bg-c-lite-green user-profile">
                       <div className="card-block text-center text-black">
-                        <div class="profile-img perfil img-center" id="img-center">
+                        <div className="profile-img perfil img-center" id="img-center">
                           <img
                             src={Pensando}
                             className="profile-img"
                             alt="100x100"
                           />{" "}
-                          <div class="file btn btn-lg" Style="cursor:pointer;">
+                          <div className="file btn btn-lg" Style="cursor:pointer;">
                             Change Photo
                             <input type="file" name="file" />
                           </div>

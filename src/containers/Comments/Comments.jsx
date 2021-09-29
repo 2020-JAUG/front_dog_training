@@ -76,8 +76,7 @@ const Comments = (props) => {
         }, 150);
       })
       .catch((err) => {
-        // console.log(err.response.data.message);
-        console.log("Err");
+        console.log(err);
       });
   };
 

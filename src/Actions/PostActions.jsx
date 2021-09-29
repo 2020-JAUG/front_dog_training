@@ -14,15 +14,14 @@ import {
   GET_POST_EDIT,
   START_EDIT_POST,
   EDIT_POST_SUCCE,
-  EDIT_POST_ERROR
+  EDIT_POST_ERROR,
 } from "../redux/types";
 import axios from "axios";
 import Swal from "sweetalert2";
-import store from '../redux/store';
-
+import store from "../redux/store";
 
 export function createPostAction(body) {
-  const  token = store.getState().credentials.token;
+  const token = store.getState().credentials.token;
   return async (dispatch) => {
     dispatch(addPost());
     await axios
@@ -46,7 +45,7 @@ export function createPostAction(body) {
         });
       });
   };
-};
+}
 
 const addPost = () => ({
   type: ADD_POST,
@@ -65,7 +64,7 @@ const addPostError = (state) => ({
 });
 
 export function getPostAction() {
-  const  token = store.getState().credentials.token;
+  const token = store.getState().credentials.token;
   //Note getPostAction, run the function wownloadProducts
   return async (dispatch) => {
     dispatch(downloadPost());
@@ -89,7 +88,7 @@ export function getPostAction() {
         });
       });
   };
-};
+}
 
 const downloadPost = () => ({
   type: GET_POST,
@@ -108,18 +107,18 @@ const downloadPostError = () => ({
 
 //Get userPosts
 export function get_user_post() {
-  const  token = store.getState().credentials.token;
-  const  body = store.getState().credentials.user.id;
+  const token = store.getState().credentials.token;
+  const body = store.getState().credentials.user.id;
 
   return async (dispatch) => {
     dispatch(download_user_post());
 
     await axios
       .post("https://jaug-dog-training.herokuapp.com/post/userpost", body, {
-        headers: { authorization: "Bearer " + token  },
+        headers: { authorization: "Bearer " + token },
       })
       .then((res) => {
-        console.log(body,'despues de la res')
+        console.log(body, "despues de la res");
         dispatch(user_post_succe(res.data)); //Put dispatch if the call is succe
       })
       .catch((err) => {
@@ -134,7 +133,7 @@ export function get_user_post() {
         });
       });
   };
-};
+}
 
 const download_user_post = () => ({
   type: GET_POST,
@@ -159,35 +158,38 @@ export function removePostAction(postId, userId) {
     dispatch(get_remove_post(postId, userId));
 
     await axios
-      .put("https://jaug-dog-training.herokuapp.com/post/deletepost", { postId, userId }, {
-        headers: { authorization: "Bearer " + token },
-      })
+      .put(
+        "https://jaug-dog-training.herokuapp.com/post/deletepost",
+        { postId, userId },
+        {
+          headers: { authorization: "Bearer " + token },
+        }
+      )
       .then((res) => {
         //If it is eliminated show alert
-        dispatch(removeSucce() );
+        dispatch(removeSucce());
         Swal.fire("Deleted!", "Your post has been deleted.", "success");
       })
       .catch((err) => {
-        console.log(err.response.data);
-
         Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'You are not the owner of this post.',
+          icon: "error",
+          title: "Oops...",
+          text: "You are not the owner of this post.",
         });
         console.log(err);
         dispatch(removeError());
       });
   };
-};
+}
 
 const get_remove_post = (postId, userId) => ({
   type: GET_REMOVE_POST,
-  payload: postId, userId
+  payload: postId,
+  userId,
 });
 
 const removeSucce = () => ({
-  type: REMOVE_POST_SUCCE
+  type: REMOVE_POST_SUCCE,
 });
 
 const removeError = () => ({
@@ -200,7 +202,7 @@ export function editPost(post) {
   return (dispatch) => {
     dispatch(getPostEdit(post));
   };
-};
+}
 
 const getPostEdit = (post) => ({
   type: GET_POST_EDIT,
@@ -209,25 +211,25 @@ const getPostEdit = (post) => ({
 
 //Edit a record in the API and status
 export function editPostAction(body) {
-  const  token = store.getState().credentials.token;
+  const token = store.getState().credentials.token;
   return async (dispatch) => {
-    dispatch(startEdit() );
+    dispatch(startEdit());
     await axios
-      .put("http://localhost:5000/post/updatepost", body, {
+      .put("https://jaug-dog-training.herokuapp.com/post/updatepost", body, {
         headers: { authorization: "Bearer " + token },
       })
       .then((res) => {
-        dispatch(editSucce(body) ); //Put dispatch if the call is succe
+        dispatch(editSucce(body)); //Put dispatch if the call is succe
       })
       .catch((err) => {
         console.log(err);
-        console.log(err.response.data);
-        dispatch(editError() );
+        // console.log(err.response.data);
+        dispatch(editError());
         //Alert error
         Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'You don\'t have authorization.',
+          icon: "error",
+          title: "Oops...",
+          text: "You don't have authorization.",
         });
       });
   };
@@ -239,18 +241,31 @@ const startEdit = () => ({
 
 const editSucce = (body) => ({
   type: EDIT_POST_SUCCE,
-  payload: body
+  payload: body,
 });
 
 const editError = () => ({
   type: EDIT_POST_ERROR,
-  payload: true
+  payload: true,
+});
+
+// Put the post to do commment
+export function post_to_comment(postId) {
+  return (dispatch) => {
+    dispatch(get_id_post(postId));
+  };
+}
+
+const get_id_post = (post) => ({
+  type: ADD_COMMENT,
+  payload: post,
 });
 
 export function do_comment_post(body) {
-  const  token = store.getState().credentials.token;
+  console.log("bodyCommentAction");
+  const token = store.getState().credentials.token;
   return async (dispatch) => {
-    dispatch(addComment());
+    // dispatch(addComment());
     await axios
       .post("http://localhost:5000/comments", body, {
         headers: { authorization: "Bearer " + token },
@@ -262,6 +277,7 @@ export function do_comment_post(body) {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response);
         //But if there is an error, change the state
         dispatch(add_comment_error(true));
         //Alert error
@@ -272,12 +288,12 @@ export function do_comment_post(body) {
         });
       });
   };
-};
+}
 
-const addComment = () => ({
-  type: ADD_COMMENT,
-  payload: true,
-});
+// const addComment = () => ({
+//   type: ADD_COMMENT,
+//   payload: true,
+// });
 //If the product is saved in the database and modificate the state
 const add_comment_succe = (body) => ({
   type: ADD_COMMENT_SUCCE,
@@ -285,7 +301,7 @@ const add_comment_succe = (body) => ({
 });
 
 //If there was an error. state take the state of error
-const add_comment_error = (state) => ({
+const add_comment_error = () => ({
   type: ADD_COMMENT_ERROR,
-  payload: state,
+  payload: true,
 });

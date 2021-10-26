@@ -134,7 +134,7 @@ const Register = () => {
       .then((res) => {
         setDatosUser(res.data.results);
         Swal.fire({
-          title: 'Registered User, We have sent you an email to activate the account.',
+          title: 'Registered User, you can now enter the community.',
           showClass: {
             popup: 'animate__animated animate__fadeInDown'
           },

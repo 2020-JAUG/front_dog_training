@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
 import { LOGIN } from "../../redux/types.js";
 import Swal from "sweetalert2";
 
 const Login = (props) => {
-  const history = useHistory();
 
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [msgError, setMensajeError] = useState({
@@ -65,13 +63,9 @@ const Login = (props) => {
         //Guardo en RDX
         props.dispatch({ type: LOGIN, payload: res.data });
 
-        if (!res.data.user.isAdmin) {
-          history.push("/commonwall");
-        } else {
-          history.push("/commonwall");
-        }
       })
       .catch((err) => {
+        console.log(err.response.data);
         Swal.fire({
           icon: "error",
           title: "Was a mistake",

@@ -7,7 +7,6 @@ import {
 import axios from "axios";
 import Swal from "sweetalert2";
 import store from "../redux/store";
-import { useHistory } from "react-router-dom";
 
 export function handleLogin(body) {
   console.log(body);
@@ -17,13 +16,6 @@ export function handleLogin(body) {
       .post("http://localhost:5000/login", body)
       .then((res) => {
         dispatch(loginIn(res.data)); //This is to state
-
-          const history = useHistory();
-          if (!res.data.user.isAdmin) {
-            history.push("/commonwall");
-          } else {
-            history.push("/commonwall");
-          }
       })
       .catch((err) => {
         // console.log(err.response.data);
